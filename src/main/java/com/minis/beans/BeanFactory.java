@@ -35,3 +35,11 @@ public interface BeanFactory {
 
     Class getType(String name);
 }
+
+/*
+有一个问题不太明白, 为什么要有BeanFactory和SingletonBeanRegistry这两个接口呢
+作者回复: 角色分离。一个是工厂，另一个是仓库。
+
+可以理解为是按接口编程, BeanFactory接口负责Bean的获取，SingletonBeanRegistry接口负责Bean的存储，
+一个类同时实现这两个接口，就有完整的IOC实现，例如Spring中的DefaultListableBeanFactory；
+*/
