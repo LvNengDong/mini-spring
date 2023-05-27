@@ -1,4 +1,4 @@
-package com.minis.core;
+package com.minis.beans;
 
 import com.google.common.collect.Maps;
 import com.minis.beans.BeanDefinition;
@@ -17,18 +17,18 @@ import java.util.Objects;
  */
 @Slf4j
 public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
-    //private List<BeanDefinition> beanDefinitions = Lists.newArrayList();
-    //private List<String> beanNames = Lists.newArrayList();
-    //public Map<String, Object> sigletons = Maps.newHashMap();
 
     private Map<String, BeanDefinition> beanDefinitions = Maps.newConcurrentMap();
 
+    /**
+     * 默认获取单例bean
+     */
     @Override
     public Object getBean(String beanName) throws BeansException {
-        // 使用 DefaultSingletonBeanRegistry 中的方法管理单例bean
+        // 使用 DefaultSingletonBeanRegistry 中的方法获取单例bean
         Object singleton = this.getSingleton(beanName);
-        // 如果此时还没有这个实例，则获取它的定义来创建实例
         if (Objects.isNull(singleton)) {
+            // 如果此时还没有这个实例，则获取它的定义来创建实例
             BeanDefinition beanDefinition = beanDefinitions.get(beanName);
             if (Objects.isNull(beanDefinition)) {
                 log.info("传入的beanName未被Spring管理 beanName:{}", beanName);
@@ -40,24 +40,34 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                 log.error("通过反射创建对象实例出错 beanName:{} className", beanName, beanDefinition.getClassName(), e);
                 throw new RuntimeException(e);
             }
-            // 注册Bean实例
+            // 注册单例Bean
             this.registerSingleton(beanName, singleton);
         }
         return singleton;
     }
 
-
-    public void registerBeanDefinition(BeanDefinition beanDefinition) { this.beanDefinitions.put(beanDefinition.getId(), beanDefinition); }
-
+    /**
+     * 是否存在单例Bean
+     */
     @Override
-    public Boolean containsBean(String name) {
+    public Boolean containsBean(String beanName) {
         // 使用DefaultSingletonBeanRegistry的实现
-        return containsSingleton(name);
+        return this.containsSingleton(beanName);
     }
 
+    /**
+     * 注册单例bean
+     */
     @Override
     public void registerBean(String beanName, Object obj) {
         // 使用DefaultSingletonBeanRegistry的实现
         this.registerSingleton(beanName, obj);
+    }
+
+    /**
+     * 注册bd的方法，这个方法在接口中不体现，但是在这里应该有，为XmlBeanDefinitionReader提供加载bd的方法
+     * */
+    public void registerBeanDefinition(BeanDefinition beanDefinition) {
+        this.beanDefinitions.put(beanDefinition.getId(), beanDefinition);
     }
 }

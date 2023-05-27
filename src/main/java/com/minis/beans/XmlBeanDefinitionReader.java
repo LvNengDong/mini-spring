@@ -1,8 +1,9 @@
-package com.minis.core;
+package com.minis.beans;
 
 
 import com.minis.beans.BeanDefinition;
-import com.minis.beans.BeansException;
+import com.minis.beans.SimpleBeanFactory;
+import com.minis.core.Resource;
 import org.dom4j.Element;
 
 /**

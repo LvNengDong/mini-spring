@@ -2,6 +2,8 @@ package com.minis.context;
 
 import com.minis.beans.BeanFactory;
 import com.minis.beans.BeansException;
+import com.minis.beans.SimpleBeanFactory;
+import com.minis.beans.XmlBeanDefinitionReader;
 import com.minis.core.*;
 
 /**
@@ -11,12 +13,12 @@ import com.minis.core.*;
  */
 public class ClassPathXmlApplicationContext implements BeanFactory {
 
-    public BeanFactory beanFactory;
+    public SimpleBeanFactory beanFactory;
     /*context负责整合容器的启动过程，读取外部配置，解析Bean定义，创建BeanFactory*/
     public ClassPathXmlApplicationContext(String fileName){
         // 解析 XML 文件中的内容
         Resource resource = new ClassPathXmlResource(fileName);
-        BeanFactory beanFactory = new SimpleBeanFactory();
+        SimpleBeanFactory beanFactory = new SimpleBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         // 加载解析的内容，构建 BeanDefinition
         reader.loadBeanDefinitions(resource);
