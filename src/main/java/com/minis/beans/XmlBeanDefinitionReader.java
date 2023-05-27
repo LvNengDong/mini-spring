@@ -25,7 +25,7 @@ public class XmlBeanDefinitionReader {
                 String beanID = element.attributeValue("id");
                 String beanClassName = element.attributeValue("class");
                 BeanDefinition beanDefinition = new BeanDefinition(beanID, beanClassName);
-                simpleBeanFactory.registerBeanDefinition(beanDefinition);
+                simpleBeanFactory.registerBeanDefinition(beanID, beanDefinition);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

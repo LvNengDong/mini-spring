@@ -12,7 +12,6 @@ public class Test1 {
     public static void main(String[] args) throws BeansException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         AService aservice = (AService) context.getBean("aservice");
-        AService aservice2 = (AService) context.getBean("aservice2");
-        aservice2.sayHello();
+        aservice.sayHello("sss");
     }
 }

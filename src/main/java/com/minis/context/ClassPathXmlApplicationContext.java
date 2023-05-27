@@ -11,7 +11,7 @@ import com.minis.core.*;
  * @Description
  * @Date 2023/5/1 20:11
  */
-public class ClassPathXmlApplicationContext implements BeanFactory {
+public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
 
     public SimpleBeanFactory beanFactory;
     /*context负责整合容器的启动过程，读取外部配置，解析Bean定义，创建BeanFactory*/
@@ -41,5 +41,28 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
     @Override
     public void registerBean(String beanName, Object obj) {
         this.beanFactory.registerBean(beanName, obj);
+    }
+
+    @Override
+    public boolean isSingleton(String name) {
+        // TODO
+        return false;
+    }
+
+    @Override
+    public boolean isPrototype(String name) {
+        // TODO
+        return false;
+    }
+
+    @Override
+    public Class getType(String name) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public void publishEvent(ApplicationEvent event) {
+
     }
 }
