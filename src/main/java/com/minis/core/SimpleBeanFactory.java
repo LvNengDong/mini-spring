@@ -16,7 +16,7 @@ import java.util.Objects;
  * @Date 2023/5/1 19:47
  */
 @Slf4j
-public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public class SimpleBeanFactory implements BeanFactory {
     private List<BeanDefinition> beanDefinitions = Lists.newArrayList();
     private List<String> beanNames = Lists.newArrayList();
     public Map<String, Object> sigletons = Maps.newHashMap();
@@ -48,22 +48,15 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
         return singleton;
     }
 
+    /**
+     *
+     * @param beanDefinition 读取XML配置文件，映射成BeanDefinition，作为这个方法的入参
+     * @throws BeansException
+     */
     @Deprecated
     @Override
     public void registerBeanDefinition(BeanDefinition beanDefinition) throws BeansException {
         this.beanDefinitions.add(beanDefinition);
         this.beanNames.add(beanDefinition.getId());
-    }
-
-    @Override
-    public Boolean containsBean(String name) {
-        // 使用DefaultSingletonBeanRegistry的实现
-        return containsSingleton(name);
-    }
-
-    @Override
-    public void registerBean(String beanName, Object obj) {
-        // 使用DefaultSingletonBeanRegistry的实现
-        this.registerSingleton(beanName, obj);
     }
 }

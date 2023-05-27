@@ -1,5 +1,6 @@
-package com.minis.core;
+package com.minis.context;
 
+import com.minis.context.Resource;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -9,12 +10,13 @@ import java.util.Iterator;
 
 /**
  * @Author lnd
- * @Description
+ * @Description 加载XML配置文件到内存中
  * @Date 2023/5/1 19:17
  */
 public class ClassPathXmlResource implements Resource {
     Document document;
     Element rootElement;
+    /*迭代器，用于遍历集合*/
     Iterator elementIterator;
 
     public ClassPathXmlResource(String fileName) {
