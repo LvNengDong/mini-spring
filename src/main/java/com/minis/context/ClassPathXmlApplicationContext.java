@@ -1,14 +1,15 @@
-package com.minis.core;
+package com.minis.context;
 
-import com.minis.beans.BeanDefinition;
+import com.minis.beans.BeanFactory;
 import com.minis.beans.BeansException;
+import com.minis.core.*;
 
 /**
  * @Author lnd
  * @Description
  * @Date 2023/5/1 20:11
  */
-public class ClassPathXmlApplicationContext implements BeanFactory{
+public class ClassPathXmlApplicationContext implements BeanFactory {
 
     public BeanFactory beanFactory;
     /*context负责整合容器的启动过程，读取外部配置，解析Bean定义，创建BeanFactory*/
@@ -29,10 +30,6 @@ public class ClassPathXmlApplicationContext implements BeanFactory{
         return this.beanFactory.getBean(beanName);
     }
 
-    @Override
-    public void registerBeanDefinition(BeanDefinition beanDefinition) throws BeansException {
-        this.beanFactory.registerBeanDefinition(beanDefinition);
-    }
 
     @Override
     public Boolean containsBean(String name) {

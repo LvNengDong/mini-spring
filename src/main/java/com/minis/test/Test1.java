@@ -1,7 +1,7 @@
 package com.minis.test;
 
 import com.minis.beans.BeansException;
-import com.minis.core.ClassPathXmlApplicationContext;
+import com.minis.context.ClassPathXmlApplicationContext;
 
 /**
  * @Author lnd

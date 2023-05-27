@@ -1,22 +1,23 @@
-package com.minis.core;
+package com.minis.beans;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.minis.beans.SingletonBeanRegistry;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * @Author lnd
- * @Description
+ * @Description SingletonBeanRegistry的默认实现类
  * @Date 2023/5/1 23:27
  */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
-    /*容器中存放的所有单例bean的名称的列表*/
+    /** 所有单例bean的名称*/
     List<String> beanNames = Lists.newArrayList();
 
-    /*容器中存放的所有单例bean实例的map*/
+    /** 所有单例bean的实例map*/
     Map<String, Object> singletons = Maps.newConcurrentMap();
 
     @Override
