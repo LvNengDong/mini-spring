@@ -16,8 +16,7 @@ import java.util.Map;
  * @Description
  * @Date 2023/4/22 22:45
  */
-@Deprecated
-public class ClassPathXmlApplicationContext_v1 {
+public class ClassPathXmlApplicationContext {
 
 
     private List<BeanDefinition> beanDefinitions = Lists.newArrayList();
@@ -29,7 +28,7 @@ public class ClassPathXmlApplicationContext_v1 {
      * 1、读取外存中的配置文件，
      * 2、解析出bean的定义，形成对应的内存映像
      */
-    public ClassPathXmlApplicationContext_v1(String fileName) {
+    public ClassPathXmlApplicationContext(String fileName) {
         this.readXml(fileName);
         this.instanceBeans();
     }

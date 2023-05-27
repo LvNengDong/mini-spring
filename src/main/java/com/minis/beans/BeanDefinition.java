@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @Author lnd
- * @Description
+ * @Description BeanDefinition直接映射XML文件中bean的定义
  * @Date 2023/4/22 22:43
  */
 @AllArgsConstructor
@@ -13,5 +13,4 @@ import lombok.Data;
 public class BeanDefinition {
     private String id;
     private String className;
-
 }
