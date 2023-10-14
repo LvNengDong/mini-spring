@@ -1,5 +1,8 @@
-package com.minis;
+package com.minis.reader;
 
+import com.minis.factory.BeanFactory;
+import com.minis.beans.BeanDefinition;
+import com.minis.resource.Resource;
 import org.dom4j.Element;
 
 /**
