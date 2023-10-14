@@ -1,5 +1,6 @@
 package com.minis.test;
 
+import com.minis.BeansException;
 import com.minis.ClassPathXmlApplicationContext;
 import com.minis.test.bean.XService;
 import com.minis.test.utils.printLog.FormatUtil;
@@ -10,7 +11,7 @@ import com.minis.test.utils.printLog.FormatUtil;
  * @Date 2023/4/22 23:09
  */
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BeansException {
         FormatUtil.start();
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         XService aiguo = (XService) context.getBean("aiguo");
