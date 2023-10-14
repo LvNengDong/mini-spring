@@ -59,7 +59,7 @@ public class ClassPathXmlApplicationContext {
     }
 
     /**
-     * Part2：配置文件加载器
+     *
      * */
     private void readXml(String fileName) {
         SAXReader saxReader = new SAXReader();
