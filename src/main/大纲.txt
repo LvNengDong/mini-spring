@@ -20,4 +20,6 @@ Bean容器     >>     Map（singletons）
 
 分解 ClassPathXmlApplicationContext 
     1、一是提出一个最基础的核心容器 BeanFactory
+        1.1 getBean
+        1.2 registerBeanDefinition
     2、二是把 XML 这些外部配置信息的访问单独剥离出去
