@@ -1,8 +1,7 @@
-package com.minis.deprecated;
+package com.minis;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.minis.beans.BeanDefinition;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -16,12 +15,11 @@ import java.util.Map;
  * @Description
  * @Date 2023/4/22 22:45
  */
-@Deprecated
-public class ClassPathXmlApplicationContext_v1 {
+public class ClassPathXmlApplicationContext {
 
-
+    /** Part3：Bean的内存映像 */
     private List<BeanDefinition> beanDefinitions = Lists.newArrayList();
-
+    /** Part5：保存Bean (Map)*/
     private Map<String, Object> singletons = Maps.newHashMap();
 
     /**
@@ -29,7 +27,7 @@ public class ClassPathXmlApplicationContext_v1 {
      * 1、读取外存中的配置文件，
      * 2、解析出bean的定义，形成对应的内存映像
      */
-    public ClassPathXmlApplicationContext_v1(String fileName) {
+    public ClassPathXmlApplicationContext(String fileName) {
         this.readXml(fileName);
         this.instanceBeans();
     }
@@ -42,6 +40,7 @@ public class ClassPathXmlApplicationContext_v1 {
             String id = beanDefinition.getId();
             String className = beanDefinition.getClassName();
             try {
+                /** Part4:创建实例Bean */
                 Object instance = Class.forName(className).newInstance();
                 singletons.put(id, instance);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
@@ -52,12 +51,16 @@ public class ClassPathXmlApplicationContext_v1 {
     }
 
     /**
+     * Part6：获取Bean
      * 这是对外的一个方法，让外部程序从容器中获取Bean实例，会逐步演化成核心方法
      */
     public Object getBean(String beanName) {
         return singletons.get(beanName);
     }
 
+    /**
+     * Part2：配置文件加载器
+     * */
     private void readXml(String fileName) {
         SAXReader saxReader = new SAXReader();
         try {
