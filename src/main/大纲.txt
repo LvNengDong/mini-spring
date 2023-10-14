@@ -1,4 +1,3 @@
-
 ## Lesson1_v1 大纲
 Bean的配置文件 >> bean.xml
     ↓               ↓
@@ -20,5 +19,5 @@ Bean容器     >>     Map（singletons）
 > 核心动作：解耦 ClassPathXmlApplicationContext
 
 分解 ClassPathXmlApplicationContext 
-    1、一是提出一个最基础的核心容器
+    1、一是提出一个最基础的核心容器 BeanFactory
     2、二是把 XML 这些外部配置信息的访问单独剥离出去
