@@ -1,8 +1,7 @@
-package com.minis.core;
+package com.minis;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.minis.beans.BeanDefinition;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -18,9 +17,9 @@ import java.util.Map;
  */
 public class ClassPathXmlApplicationContext {
 
-
+    /** Part3：Bean的内存映像 */
     private List<BeanDefinition> beanDefinitions = Lists.newArrayList();
-
+    /** Part5：保存Bean (Map)*/
     private Map<String, Object> singletons = Maps.newHashMap();
 
     /**
@@ -41,6 +40,7 @@ public class ClassPathXmlApplicationContext {
             String id = beanDefinition.getId();
             String className = beanDefinition.getClassName();
             try {
+                /** Part4:创建实例Bean */
                 Object instance = Class.forName(className).newInstance();
                 singletons.put(id, instance);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
@@ -51,12 +51,16 @@ public class ClassPathXmlApplicationContext {
     }
 
     /**
+     * Part6：获取Bean
      * 这是对外的一个方法，让外部程序从容器中获取Bean实例，会逐步演化成核心方法
      */
     public Object getBean(String beanName) {
         return singletons.get(beanName);
     }
 
+    /**
+     * Part2：配置文件加载器
+     * */
     private void readXml(String fileName) {
         SAXReader saxReader = new SAXReader();
         try {
