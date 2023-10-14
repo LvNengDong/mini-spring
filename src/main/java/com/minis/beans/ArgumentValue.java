@@ -7,18 +7,13 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * @Author lnd
- * @Description
+ * @Description 构造方法注入
  * @Date 2023/5/27 23:23
  */
 @AllArgsConstructor
 @Data
 public class ArgumentValue {
-    private Object value;
     private String type;
     private String name;
-
-    public ArgumentValue(Object value, String name) {
-        this.value = value;
-        this.name = name;
-    }
+    private Object value;
 }

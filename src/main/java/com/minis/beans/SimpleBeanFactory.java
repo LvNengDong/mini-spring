@@ -37,14 +37,31 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                 log.info("传入的beanName未被Spring管理 beanName:{}", beanName);
                 throw new BeansException("传入的beanName未被管理：" + beanName);
             }
-            try {
-                singleton = Class.forName(beanDefinition.getClassName()).newInstance();
-            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                log.error("通过反射创建对象实例出错 beanName:{} className", beanName, beanDefinition.getClassName(), e);
-                throw new RuntimeException(e);
-            }
+            singleton = createBean(beanDefinition);
             // 注册单例Bean
             this.registerSingleton(beanName, singleton);
+        }
+        return singleton;
+    }
+
+    /**
+     * 根据beanDefinition创建bean
+     */
+    private Object createBean(BeanDefinition beanDefinition) {
+        Object obj = null;
+        Class<?> clz = null;
+        try {
+            clz = Class.forName(beanDefinition.getClassName());
+            // 处理构造器参数
+            ArgumentValues argumentValues = beanDefinition.getConstructorArgumentValues();
+            if (Objects.nonNull(argumentValues)) {
+                Class<?>[] paramTypes = new Class<?>[argumentValues.getArgumentCount()];
+                Class<?>[] paramValues = new Class<?>[argumentValues.getArgumentCount()];
+            }
+            singleton = clz.newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            log.error("通过反射创建对象实例出错 beanName:{} className", beanName, beanDefinition.getClassName(), e);
+            throw new RuntimeException(e);
         }
         return singleton;
     }
