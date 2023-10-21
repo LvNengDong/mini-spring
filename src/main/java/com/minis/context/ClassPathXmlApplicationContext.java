@@ -1,5 +1,7 @@
 package com.minis.context;
 
+import com.apple.eawt.ApplicationEvent;
+import com.minis.ApplicationEventPublisher;
 import com.minis.factory.BeanFactory;
 import com.minis.beans.BeansException;
 import com.minis.factory.SimpleBeanFactory;
@@ -13,7 +15,7 @@ import com.minis.resource.Resource;
  * @Description
  * @Date 2023/4/22 22:45
  */
-public class ClassPathXmlApplicationContext {
+public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
 
     private BeanFactory beanFactory;
 
@@ -43,5 +45,34 @@ public class ClassPathXmlApplicationContext {
      */
     public void registerBeanDefinition(BeanDefinition beanDefinition) {
         this.beanFactory.registerBeanDefinition(beanDefinition);
+    }
+
+    @Override
+    public boolean containsBean(String name) {
+        return this.beanFactory.containsBean(name);
+    }
+
+    @Override
+    public boolean isSingleton(String name) {
+        return false;
+    }
+
+    @Override
+    public boolean isPrototype(String name) {
+        return false;
+    }
+
+    @Override
+    public Class getType(String name) {
+        return null;
+    }
+
+    public void registerBean(String beanName, Object obj) {
+        this.beanFactory.registerBean(beanName, obj);
+    }
+
+    @Override
+    public void publishEvent(ApplicationEvent event) {
+
     }
 }

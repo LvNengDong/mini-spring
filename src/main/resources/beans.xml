@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--Part1：Bean的配置文件-->
 <beans>
-    <bean id = "aiguo" class = "com.minis.test.bean.AiGuoServiceImpl"></bean>
-    <bean id = "wangcai" class = "com.minis.test.bean.WangCaiServiceImpl"></bean>
+    <bean id = "aiguo" class = "com.minis.test.bean.AiGuoServiceImpl">
+        <!--Setter注入： 属性类型 | 属性名 | 属性值-->
+        <property type="String" name="country" value="中国"></property>
+    </bean>
+    <bean id = "wangcai" class = "com.minis.test.bean.WangCaiServiceImpl">
+        <!-- 构造器注入 -->
+        <constructor-arg type="String" name="gender" value="公"></constructor-arg>
+        <constructor-arg type="int" name="age" value="3"></constructor-arg>
+    </bean>
+
+
+    <bean id = "Desk" class = "com.minis.test.bean.Desk">
+        <!-- 搭配使用 -->
+        <constructor-arg type="String" name="color" value="实木色"></constructor-arg>
+        <property type="int" name="length" value="80"></property>
+        <property type="int" name="width" value="60"></property>
+        <property type="int" name="height" value="120"></property>
+    </bean>
 </beans>

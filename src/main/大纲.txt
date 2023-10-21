@@ -23,3 +23,10 @@ Part6    获取Bean     >>    get方法
         1.1 getBean
         1.2 registerBeanDefinition
     2、二是把 XML 这些外部配置信息的访问单独剥离出去
+
+
+## Lesson2
+核心动作
+    1、增加单例 Bean 的接口定义，然后把所有的 Bean 默认为单例模式。
+    2、预留事件监听的接口
+    3、扩展 BeanDefinition，添加一些属性，现在它只有 id 和 class 两个属性
