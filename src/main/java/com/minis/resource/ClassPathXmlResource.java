@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 /**
  * @Author lnd
- * @Description 加载配置文件到内存中
+ * @Description 加载配置文件到内存中，并保留访问内存中文件的入口
  * @Date 2023/10/14 13:07
  */
 @Slf4j
@@ -23,16 +23,18 @@ public class ClassPathXmlResource implements Resource {
 
     public ClassPathXmlResource(String fileName) {
         SAXReader saxReader = new SAXReader();
-        URL xmlPath = null;
+        URL filePath = null;
         try {
             // 将配置文件装在进来，生成一个迭代器，可以用于遍历
-            xmlPath = this.getClass().getClassLoader().getResource(fileName);
+            filePath = this.getClass().getClassLoader().getResource(fileName);
+            log.info("加载配置文件到内存中，start======= fileName:{}", fileName);
             /** Part2：加载配置文件到内存中，将 XML 配置文件读取到内存中，用一个 document 对象表示 */
-            document = saxReader.read(xmlPath); // document 就是配置文件在内存中的映像
+            document = saxReader.read(filePath); // document 就是配置文件在内存中的映像
             rootElement = document.getRootElement();
             elementIterator = rootElement.elementIterator();
+            log.info("加载配置文件到内存中，end======= fileName:{}", fileName);
         } catch (Exception e) {
-            log.info("生成XML配置文件读取器失败,xmlPath:{}", xmlPath, e);
+            log.info("加载配置文件到内存中，error======= fileName:{}", fileName, e);
         }
     }
 

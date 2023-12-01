@@ -23,13 +23,18 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
      *  起一个整合作用，串联整个流程
      *   context负责整合容器的启动过程，读外部配置，解析Bean定义，创建BeanFactory
      * */
-    public ClassPathXmlApplicationContext(String fileName) {
+    public ClassPathXmlApplicationContext(String fileName, boolean isRefresh) {
         // 1、加载配置文件
         Resource resource = new ClassPathXmlResource(fileName);
         beanFactory = new SimpleBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         // 2、解析配置文件 + 注册 BeanDefinition
         reader.loadBeanDefinitions(resource);
+
+        if (isRefresh) {
+            SimpleBeanFactory simpleBeanFactory = (SimpleBeanFactory) beanFactory;
+            simpleBeanFactory.refresh();
+        }
     }
 
 

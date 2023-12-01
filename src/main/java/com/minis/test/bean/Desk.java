@@ -7,36 +7,45 @@ package com.minis.test.bean;
  */
 public class Desk {
     private String color;
-    private int length;
-    private int width;
-    private int height;
+    private String length;
+    private String width;
+    private String height;
+    private Stool ref1;
 
     public Desk(String color) {
         this.color = color;
     }
 
 
-    public int getLength() {
+    public String getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(String length) {
         this.length = length;
     }
 
-    public int getWidth() {
+    public String getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         this.height = height;
+    }
+
+    public Stool getRef1() {
+        return ref1;
+    }
+
+    public void setRef1(Stool ref1) {
+        this.ref1 = ref1;
     }
 }

@@ -52,4 +52,7 @@ public class PropertyValues {
     public boolean isEmpty() {
         return this.propertyValueList.isEmpty();
     }
+    public boolean isNotEmpty() {
+        return !this.propertyValueList.isEmpty();
+    }
 }

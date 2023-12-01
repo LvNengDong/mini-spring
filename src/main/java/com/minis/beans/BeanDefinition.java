@@ -5,6 +5,8 @@ import com.minis.PropertyValues;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Author lnd
  * @Description BeanDefinition直接映射XML文件中bean的定义
@@ -24,7 +26,7 @@ public class BeanDefinition {
     private boolean lazyInit = false;
 
     /* 记录 Bean 之间的依赖关系 */
-    private String[] dependsOn;
+    private List<String> dependsOn;
 
     /* 构造器参数 */
     private ArgumentValues constructorArgumentValues;

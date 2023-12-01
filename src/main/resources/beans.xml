@@ -15,8 +15,13 @@
     <bean id = "Desk" class = "com.minis.test.bean.Desk">
         <!-- 搭配使用 -->
         <constructor-arg type="String" name="color" value="实木色"></constructor-arg>
-        <property type="int" name="length" value="80"></property>
-        <property type="int" name="width" value="60"></property>
-        <property type="int" name="height" value="120"></property>
+        <property type="String" name="length" value="80"></property>
+        <property type="String" name="width" value="60"></property>
+        <property type="String" name="height" value="120"></property>
+        <!-- 引用 ref-->
+        <property type="com.minis.test.bean.Stool" name="ref1" ref="stool"></property>
+    </bean>
+
+    <bean id="stool" class="com.minis.test.bean.Stool">
     </bean>
 </beans>
