@@ -18,8 +18,8 @@ import java.util.Map;
  */
 @Slf4j
 public class SimpleBeanFactory implements BeanFactory {
-    private List beanDefinitions = new ArrayList<>();
-    private List beanNames = new ArrayList<>();
+    private List<BeanDefinition> beanDefinitions = new ArrayList<>();
+    private List<String> beanNames = new ArrayList<>();
 
     /**
      * Bean容器
@@ -43,7 +43,7 @@ public class SimpleBeanFactory implements BeanFactory {
                 throw new BeansException(beanName + " 对应的beanDefinition不存在");
             } else {
                 // 获取Bean的定义
-                BeanDefinition beanDefinition = (BeanDefinition) beanDefinitions.get(i);
+                BeanDefinition beanDefinition = beanDefinitions.get(i);
                 try {
                     /* Part4、创建实例Bean */
                     singleton = Class.forName(beanDefinition.getClassName()).newInstance();

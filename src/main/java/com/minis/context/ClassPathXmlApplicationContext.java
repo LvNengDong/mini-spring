@@ -13,7 +13,7 @@ import com.minis.resource.Resource;
  * @Description
  * @Date 2023/4/22 22:45
  */
-public class ClassPathXmlApplicationContext {
+public class ClassPathXmlApplicationContext implements BeanFactory {
 
     private BeanFactory beanFactory;
 
@@ -32,15 +32,18 @@ public class ClassPathXmlApplicationContext {
 
 
     /**
-     * context再对外提供一个getBean，底层就是调用的BeanFactory对应的方法
+     * context再对外提供一个 getBean，底层就是调用的BeanFactory 的 getBean 方法
      */
+    @Override
     public Object getBean(String beanName) throws BeansException {
         return beanFactory.getBean(beanName);
     }
 
     /**
-     * context再对外提供一个registerBeanDefinition，底层就是调用的BeanFactory对应的方法
+     * context再对外提供一个 registerBeanDefinition，底层就是调用的BeanFactory 的 registerBeanDefinition 方法，
+     * 用于手动注册 BeanDefinition 到容器中
      */
+    @Override
     public void registerBeanDefinition(BeanDefinition beanDefinition) {
         this.beanFactory.registerBeanDefinition(beanDefinition);
     }

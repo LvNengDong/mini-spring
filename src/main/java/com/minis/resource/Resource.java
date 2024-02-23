@@ -28,11 +28,11 @@ public interface Resource extends Iterator<Object> {
     但是在Spring中，内存映像(document)是不能被直接使用的，document 中的数据是很多个 BeanDefinition 的合集，
     Spring 需要将 document 解析处理成一个个 BeanDefinition，所以这里需要用到一个操作就是“遍历”。
 
-    将Bean定义信息映射成 BeanDefinition 的过程是由 XxxReader 来完成的，而 XmlResource 需要为 XxxReader 提供
+    将Bean定义信息转换成 BeanDefinition 的过程是由 XxxReader 来完成的，而 XmlResource 需要为 XxxReader 提供
     document 数据。关于如何处理 document 数据，接下来会有两种做法：
         1、一是像之前实现的那样，XmlResource 为 XxxReader 提供 document 对象，XxxReader 自己通过 for 循环遍历
         document下的所有数据节点并映射为 BeanDefinition。
-        2、二就是我们目前使用的这种方法，让 Resource 接口继承 Iterator 接口，让它们的共同子类实现 next 和 hasNext
+        2、二就是我们目前使用的这种方法，让 Resource 接口继承 Iterator 接口，让 Resource 接口的子类实现 next 和 hasNext
         方法，Resource 实现类同时对外暴漏 document 对象、next 方法和 hasNext 方法。这样 XxxReader 就可以不用使用
         for 循环，而是依赖于 Resource 中的 next 和 hasNext 方法来判断 XML 配置文件是否读完毕。
     这两种方法的区别是，
