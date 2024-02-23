@@ -6,6 +6,7 @@ import com.minis.PropertyValue;
 import com.minis.PropertyValues;
 import com.minis.factory.BeanFactory;
 import com.minis.beans.BeanDefinition;
+import com.minis.factory.SimpleBeanFactory;
 import com.minis.resource.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -29,8 +30,8 @@ public class XmlBeanDefinitionReader {
      *  注册 BeanDefinition，而注册 BeanDefinition的方法被抽象在 beanFactory 中了，
      *  所以这里需要注入 beanFactory。
      *  */
-    BeanFactory beanFactory;
-    public XmlBeanDefinitionReader(BeanFactory beanFactory) {
+    SimpleBeanFactory beanFactory;
+    public XmlBeanDefinitionReader(SimpleBeanFactory beanFactory) {
         this.beanFactory = beanFactory;
     }
 
@@ -82,6 +83,7 @@ public class XmlBeanDefinitionReader {
             beanDefinition.setConstructorArgumentValues(AVS);
             // 初始化BeanDefinition
             this.beanFactory.registerBeanDefinition(beanDefinition);
+            this.beanFactory.registerBeanDefinition(beanID, beanDefinition);
         }
         log.info("初始化BeanDefinition，end============");
     }

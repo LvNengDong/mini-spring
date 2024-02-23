@@ -16,16 +16,11 @@ import java.util.List;
 public class BeanDefinition {
     private String id;
     private String className;
-
-    public BeanDefinition (String id, String className) {
-        this.id = id;
-        this.className = className;
-    }
     String SCOPE_SINGLETON = "singleton";
     String SCOPE_PROTOTYPE = "prototype";
     private boolean lazyInit = false;
-
     /* 记录 Bean 之间的依赖关系 */
+    private String[] dependsOn;
     private List<String> dependsOn;
 
     /* 构造器参数 */
@@ -36,6 +31,11 @@ public class BeanDefinition {
     private String initMethodName;
     private volatile Object beanClass;
     private String scope = SCOPE_SINGLETON;
+
+    public BeanDefinition (String id, String className) {
+        this.id = id;
+        this.className = className;
+    }
 
     public boolean isSingleton() {
         return SCOPE_SINGLETON.equals(scope);
