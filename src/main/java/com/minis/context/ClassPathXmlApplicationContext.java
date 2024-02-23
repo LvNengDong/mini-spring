@@ -17,7 +17,7 @@ import com.minis.resource.Resource;
  */
 public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
 
-    private BeanFactory beanFactory;
+    private SimpleBeanFactory beanFactory;
 
     /*
      *  起一个整合作用，串联整个流程
