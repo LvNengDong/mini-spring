@@ -40,12 +40,6 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
         return beanFactory.getBean(beanName);
     }
 
-    /**
-     * context再对外提供一个registerBeanDefinition，底层就是调用的BeanFactory对应的方法
-     */
-    public void registerBeanDefinition(BeanDefinition beanDefinition) {
-        this.beanFactory.registerBeanDefinition(beanDefinition);
-    }
 
     @Override
     public boolean containsBean(String name) {
@@ -66,11 +60,10 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
     public Class getType(String name) {
         return null;
     }
-
+    @Override
     public void registerBean(String beanName, Object obj) {
         this.beanFactory.registerBean(beanName, obj);
     }
-
     @Override
     public void publishEvent(ApplicationEvent event) {
 

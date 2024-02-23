@@ -2,6 +2,7 @@ package com.minis.reader;
 
 import com.minis.factory.BeanFactory;
 import com.minis.beans.BeanDefinition;
+import com.minis.factory.SimpleBeanFactory;
 import com.minis.resource.Resource;
 import org.dom4j.Element;
 
@@ -18,8 +19,8 @@ public class XmlBeanDefinitionReader {
      *  注册 BeanDefinition，而注册 BeanDefinition的方法被抽象在 beanFactory 中了，
      *  所以这里需要注入 beanFactory。
      *  */
-    BeanFactory beanFactory;
-    public XmlBeanDefinitionReader(BeanFactory beanFactory) {
+    SimpleBeanFactory beanFactory;
+    public XmlBeanDefinitionReader(SimpleBeanFactory beanFactory) {
         this.beanFactory = beanFactory;
     }
 

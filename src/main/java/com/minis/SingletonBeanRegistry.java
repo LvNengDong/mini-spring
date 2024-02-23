@@ -2,7 +2,7 @@ package com.minis;
 
 /**
  * @Author lnd
- * @Description
+ * @Description 管理单例Bean
  *      单例的注册、获取、判断是否存在、获取所有单例bean的名字
  *
  *      SingletonBeanRegistry 可以看做是对 BeanFactory 部分功能的抽取，它把 BeanFactory 针对单例 Bean 的一系列操作提取出来
