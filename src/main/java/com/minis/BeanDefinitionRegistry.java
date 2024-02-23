@@ -8,11 +8,23 @@ import com.minis.beans.BeanDefinition;
  * @Date 2023/10/15 11:34
  */
 public interface BeanDefinitionRegistry {
+    /**
+    * 注册 BeanDefinition
+    * */
     void registerBeanDefinition(String name, BeanDefinition bd);
 
+    /**
+     * 删除 BeanDefinition
+     * */
     void removeBeanDefinition(String name);
 
+    /**
+     * 根据 BeanName 获取 BeanDefinition
+     * */
     BeanDefinition getBeanDefinition(String name);
 
+    /**
+     * 判断 BeanDefinition 是否存在
+     * */
     boolean containsBeanDefinition(String name);
 }

@@ -2,11 +2,11 @@
 <!--Part1：Bean的配置文件-->
 <beans>
     <bean id = "aiguo" class = "com.minis.test.bean.AiGuoServiceImpl">
-        <!--Setter注入： 属性类型 | 属性名 | 属性值-->
+        <!--Setter注入（property标签）： 属性类型 | 属性名 | 属性值-->
         <property type="String" name="country" value="中国"></property>
     </bean>
     <bean id = "wangcai" class = "com.minis.test.bean.WangCaiServiceImpl">
-        <!-- 构造器注入 -->
+        <!-- 构造器注入（constructor-arg标签） -->
         <constructor-arg type="String" name="gender" value="公"></constructor-arg>
         <constructor-arg type="int" name="age" value="3"></constructor-arg>
     </bean>

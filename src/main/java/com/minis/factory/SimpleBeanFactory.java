@@ -1,7 +1,9 @@
 package com.minis.factory;
 
 import com.alibaba.fastjson2.JSON;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.minis.BeanDefinitionRegistry;
 import com.minis.DefaultSingletonBeanRegistry;
 import com.minis.beans.BeanDefinition;
 import com.minis.beans.BeansException;
@@ -25,9 +27,10 @@ import java.util.Map;
  * @Date 2023/10/14 14:12
  */
 @Slf4j
-public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory, BeanDefinitionRegistry {
     // BeanDefinition不涉及单例多例的概念，所以放在比较通用的 SimpleBeanFactory 类中即可
     private Map<String, BeanDefinition> beanDefinitionMap = Maps.newHashMap();
+    private List<String> beanDefinitionNames = Lists.newArrayList();
 
     /**
      * Bean容器
@@ -38,6 +41,7 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
     // private List beanNames = new ArrayList<>();
 
     /**
+     * parentClass ： BeanFactory
      * Part6、保存 bean 到 bean 容器中
      *
      *      1、保存 bean 到 map（singletons） 中
@@ -70,38 +74,87 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
 
 
     /**
-     * 注册 BeanDefinition
-     * 目前这个方法不再是继承自 BeanFactory 接口中的方法了，而是 SimpleBeanFactory 独有的方法
+     * parentClass ： BeanFactory
      * */
-    public void registerBeanDefinition(BeanDefinition beanDefinition) {
-        String beanName = beanDefinition.getId();
-        beanDefinitionMap.put(beanName, beanDefinition);
-    }
-
     @Override
     public void registerBean(String beanName, Object obj) {
         // 使用 DefaultSingletonBeanRegistry 的实现
         super.registerSingleton(beanName, obj);
     }
 
+    /**
+     * parentClass ： BeanFactory
+     * */
     @Override
     public boolean containsBean(String beanName) {
         // 使用 DefaultSingletonBeanRegistry 的实现
         return super.containsSingleton(beanName);
     }
 
+    /**
+     * parentClass ： BeanFactory
+     * */
     @Override
     public boolean isSingleton(String name) {
         return beanDefinitionMap.get(name).isSingleton();
     }
 
+    /**
+     * parentClass ： BeanFactory
+     * */
     @Override
     public boolean isPrototype(String name) {
         return beanDefinitionMap.get(name).isPrototype();
     }
-
+    /**
+     * parentClass ： BeanFactory
+     * */
     @Override
     public Class getType(String name) {
         return null;
+    }
+
+    /**
+     * parentClass ： BeanDefinitionRegistry
+     * 作用： 注册 BeanDefinition
+     * 备注： 目前这个方法不再是继承自 BeanFactory 接口中的方法了，而是继承自 BeanDefinitionRegistry 中的方法
+     * */
+    @Override
+    public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
+        beanDefinitionMap.put(name, beanDefinition);
+        if (!beanDefinition.isLazyInit()) {
+            log.info("非懒加载的bean，立即创建bean实例。beanName:{}",name);
+            try {
+                getBean(name);
+            } catch (BeansException e) {
+                log.info("创建bean异常 beanName:{}", name);
+            }
+        }
+    }
+
+    /*
+    * parentClass ： BeanDefinitionRegistry
+    * */
+    @Override
+    public void removeBeanDefinition(String name) {
+        this.beanDefinitionMap.remove(name);
+        this.beanDefinitionNames.remove(name);
+        this.removeSingleton(name);
+    }
+
+    /*
+     * parentClass ： BeanDefinitionRegistry
+     * */
+    @Override
+    public BeanDefinition getBeanDefinition(String name) {
+        return this.beanDefinitionMap.get(name);
+    }
+
+    /*
+     * parentClass ： BeanDefinitionRegistry
+     * */
+    @Override
+    public boolean containsBeanDefinition(String name) {
+        return this.beanDefinitionMap.containsKey(name);
     }
 }
