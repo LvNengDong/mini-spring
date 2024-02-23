@@ -17,9 +17,9 @@ public class Test {
         XService aiguo = (XService) context.getBean("aiguo");
         aiguo.sayWhat();
         FormatUtil.split();
-        XService wangcai = (XService) context.getBean("wangcai");
-        wangcai.sayWhat();
-        FormatUtil.end();
+        //XService wangcai = (XService) context.getBean("wangcai");
+        //wangcai.sayWhat();
+        //FormatUtil.end();
 
     }
 
