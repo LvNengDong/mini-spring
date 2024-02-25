@@ -27,14 +27,14 @@ public class ClassPathXmlResource implements Resource {
         try {
             // 将配置文件装在进来，生成一个迭代器，可以用于遍历
             filePath = this.getClass().getClassLoader().getResource(fileName);
-            log.info("加载配置文件到内存中，start======= fileName:{}", fileName);
+            log.info("加载配置文件到内存中 fileName:{} start", fileName);
             /** Part2：加载配置文件到内存中，将 XML 配置文件读取到内存中，用一个 document 对象表示 */
             document = saxReader.read(filePath); // document 就是配置文件在内存中的映像
             rootElement = document.getRootElement();
             elementIterator = rootElement.elementIterator();
-            log.info("加载配置文件到内存中，end======= fileName:{}", fileName);
+            log.info("加载配置文件到内存中 fileName:{} end", fileName);
         } catch (Exception e) {
-            log.info("加载配置文件到内存中，error======= fileName:{}", fileName, e);
+            log.info("加载配置文件到内存中 fileName:{} error", fileName, e);
         }
     }
 

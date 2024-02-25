@@ -13,7 +13,7 @@ import com.minis.test.utils.printLog.FormatUtil;
 public class Test {
     public static void main(String[] args) throws BeansException {
         FormatUtil.start();
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml", true);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml", false);
         XService aiguo = (XService) context.getBean("aiguo");
         aiguo.sayWhat();
         FormatUtil.split();
@@ -22,7 +22,5 @@ public class Test {
         FormatUtil.end();
 
     }
-
-
 }
 

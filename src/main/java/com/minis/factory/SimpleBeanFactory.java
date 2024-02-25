@@ -39,19 +39,21 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
 
 
     /**
+     * 创建所有的bean
+     *
      * Spring默认是懒加载的，即只有调用 getBean 时才会开始创建相关的Bean出来，
      * 而 refresh 就是这样一个方法，调用容器中所有对象的 getBean 方法，一次性将
      * 所有的 Bean 创建出来
      */
-    //public void refresh() {
-    //    for (String beanName : beanNames) {
-    //        try {
-    //            getBean(beanName);
-    //        } catch (Exception e) {
-    //            log.error("Refresh bean fail, beanName:{}", beanName);
-    //        }
-    //    }
-    //}
+    public void refresh() {
+        for (String beanName : beanDefinitionNames) {
+            try {
+                getBean(beanName);
+            } catch (Exception e) {
+                log.error("Refresh bean fail, beanName:{}", beanName);
+            }
+        }
+    }
 
     /**
      * parentClass ： BeanFactory
@@ -63,38 +65,26 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
     @Override
     public Object getBean(String beanName) throws BeansException {
         // 先尝试直接获取Bean实例，如果此时还没有这个Bean的实例，则获取它的定义来创建实例
+        log.info("getBean >> 尝试直接获取Bean实例 beanName:{}", beanName);
         Object singleton = super.getSingleton(beanName);
         if (singleton == null) {
-            BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
-            if (beanDefinition == null) {
-                throw new BeansException(beanName + " 对应的beanDefinition不存在");
-            } else {
-                try {
-                    // 创建实例Bean
-                    singleton = Class.forName(beanDefinition.getClassName()).newInstance();
-                } catch (Exception e) {
-                    log.error("根据beanDefinition创建Bean实例异常,beanDefinition:{}", JSON.toJSONString(beanDefinition), e);
-                    throw new BeansException(e.toString());
-                }
-
-                /* Part5、保存 bean 到 bean 容器中(走默认的单例实现)*/
-                super.registerSingleton(beanName, singleton);
-
-                // 如果没有实例bean，则尝试从毛坯实例中获取
-                singleton = this.earlySingletonObjects.get(beanName);
-                if (singleton == null) { // 如果连毛胚都没有，则创建bean实例并注册
-                    /* Part4、创建实例Bean */
-                    singleton = createBean(beanName, beanDefinition);
-                    /* Part5、保存 bean 到 bean 容器中*/
-                    this.registerSingleton(beanDefinition.getId(), singleton);
-                    // 预留 beanpostprocessor 位置
-                    // step1：postProcessBeforeInitialization
-                    // step2：afterPropertiesSet
-                    // step3：init-method
-                    // step4：postProcessAfterInitialization
-                }
-
+            // 如果没有实例bean，则尝试从毛坯实例中获取
+            log.info("getBean >> 尝试从三级缓存中获取早期bean实例 beanName:{}", beanName);
+            singleton = this.earlySingletonObjects.get(beanName);
+            if (singleton == null) { // 如果连毛胚都没有，则创建bean实例并注册
+                log.info("getBean >> 开始创建bean，getBeanDefinition beanName:{}", beanName);
+                BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
+                /* Part4、创建实例Bean */
+                singleton = createBean(beanName, beanDefinition);
+                log.info("getBean >> 注册实例Bean到容器中 beanName: {}", beanDefinition.getId());
+                this.registerSingleton(beanDefinition.getId(), singleton);
+                // 预留 beanpostprocessor 位置
+                // step1：postProcessBeforeInitialization
+                // step2：afterPropertiesSet
+                // step3：init-method
+                // step4：postProcessAfterInitialization
             }
+            log.info("getBean end success beanName:{} bean:{}", beanName, JSON.toJSONString(singleton));
             return singleton;
         }
         return null;
@@ -102,19 +92,19 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
 
     private Object createBean(String beanName, BeanDefinition beanDefinition) {
         try {
-            log.info("开始创建Bean,beanName: {}", beanName);
             if (beanDefinition == null) {
                 throw new BeansException(beanName + " 对应的beanDefinition不存在");
             }
             // 创建毛坯bean实例
             Object obj = doCreateBean(beanDefinition);
-            // 存放毛坯bean实例到缓存中
+            log.info("getBean >> createBean 保存三级缓存Bean到earlySingletonObjects中 beanName: {}", beanDefinition.getId());
             this.earlySingletonObjects.put(beanDefinition.getId(), obj);
             /**
              * !!!!!!!
              *  根据属性注入必须放在构造函数之后，因为根据属性注入必须使用对象的 setter 方法，通过反射调用这个方法时必须保证对应的实力bean已经被创建成功了
              */
             Class<?> clz = Class.forName(beanDefinition.getClassName());
+            // 补齐毛坯Bean中property的值
             handleProperties(beanDefinition, clz, obj);
             return obj;
         } catch (Exception e) {
@@ -127,7 +117,7 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
      * doCreateBean 创建毛坯 bean 实例，仅仅调用构造方法，没有进行属性处理
      */
     private Object doCreateBean(BeanDefinition beanDefinition) {
-        log.info("根据构造函数创建实例bean start; beanClassName:{}", beanDefinition.getClassName());
+        log.info("getBean >> createBean >> doCreateBean 创建三级缓存Bean(根据构造函数创建实例bean) beanName: {}", beanDefinition.getId());
         Class<?> clz = null;
         Object obj = null;
         Constructor<?> con = null;
@@ -169,12 +159,12 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
             log.info("根据构造函数创建实例bean时发生异常：{}", beanDefinition.getClassName(), e);
             return null;
         } finally {
-            log.info("根据构造函数创建实例bean结束,beanClassName:{}", beanDefinition.getClassName());
+            log.info("getBean >> createBean >> doCreateBean 创建三级缓存Bean(根据构造函数创建实例bean) beanName: {}  =====end", beanDefinition.getId());
         }
     }
 
     private void handleProperties(BeanDefinition beanDefinition, Class<?> clz, Object obj) {
-        log.info("开始处理bean的属性,{}", beanDefinition.getId());
+        log.info("getBean >> createBean >> handleProperties beanName:{} start====", beanDefinition.getId());
         try {
             PropertyValues propertyValues = beanDefinition.getPropertyValues();
             if (propertyValues.isNotEmpty()) {
@@ -213,6 +203,7 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                     method.invoke(obj, paramValue);
                 }
             }
+            log.info("getBean >> createBean >> handleProperties beanName:{} end======", beanDefinition.getId());
         } catch (Exception e) {
             log.error("根据set方法创建实例Bean异常", e);
         }
@@ -267,7 +258,7 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
      */
     @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
-        log.info("注册BeanDefinition start");
+        log.info("注册BeanDefinition name:{}", name);
         beanDefinitionMap.put(name, beanDefinition);
         if (!beanDefinition.isLazyInit()) {
             log.info("非懒加载的bean，立即创建bean实例。beanName:{}", name);
@@ -277,7 +268,6 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                 log.info("创建bean异常 beanName:{}", name);
             }
         }
-        log.info("注册beanDefinition end");
     }
 
     /*

@@ -1,5 +1,6 @@
 package com.minis.reader;
 
+import com.alibaba.fastjson2.JSON;
 import com.minis.ArgumentValue;
 import com.minis.ArgumentValues;
 import com.minis.PropertyValue;
@@ -35,7 +36,7 @@ public class XmlBeanDefinitionReader {
     }
 
     public void loadBeanDefinitions(Resource resource) {
-        log.info("解析Bean配置文件 start");
+        log.info("解析Bean配置文件 start ======");
         while (resource.hasNext()) {
             Element element = (Element) resource.next();
             String beanID = element.attributeValue("id");
@@ -68,7 +69,7 @@ public class XmlBeanDefinitionReader {
             beanDefinition.setPropertyValues(PVS);
             beanDefinition.setDependsOn(refs);
             // 处理构造器参数s
-            log.info("解析Bean配置文件，处理<constructor-arg>标签");
+            log.info("解析Bean配置文件 处理<constructor-arg>标签");
             List<Element> constructorElements = element.elements("constructor-arg");
             ArgumentValues AVS = new ArgumentValues();
             for (Element e : constructorElements) {
@@ -79,10 +80,18 @@ public class XmlBeanDefinitionReader {
                 AVS.addArgumentValue(AV);
             }
             beanDefinition.setConstructorArgumentValues(AVS);
-            log.info("解析Bean配置文件 end");
+            log.info("解析Bean配置文件 end beanDefinition:{}", JSON.toJSONString(beanDefinition));
 
             // 注册BeanDefinition
+            /*
+                ！！！
+                这里写的有问题
+                这里需要一次性把 BeanDefinition 加载完再去注册，因为在注册的时候，如果遇到非懒加载情况，会直接执行创建Bean的流程，
+                如果此时存在Bean之间的互相依赖，而被依赖的bean对应的BeanDefinition尚未加载到的情况，就会报错。
+                所以需要一次性先把所有的 BeanDefinition 都注册完毕
+            * */
             this.simpleBeanFactory.registerBeanDefinition(beanID, beanDefinition);
         }
+
     }
 }

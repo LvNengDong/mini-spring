@@ -8,20 +8,22 @@ import com.minis.factory.SimpleBeanFactory;
 import com.minis.reader.XmlBeanDefinitionReader;
 import com.minis.resource.ClassPathXmlResource;
 import com.minis.resource.Resource;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Author lnd
  * @Description
  * @Date 2023/4/22 22:45
  */
+@Slf4j
 public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
 
     private SimpleBeanFactory beanFactory;
 
-    /*
-     *  起一个整合作用，串联整个流程
-     *   context负责整合容器的启动过程，读外部配置，解析Bean定义，创建BeanFactory
-     * */
+    /**
+     * 起一个整合作用，串联整个流程
+     *  context负责整合容器的启动过程，读外部配置，解析Bean定义，创建BeanFactory
+     *  */
     public ClassPathXmlApplicationContext(String fileName, boolean isRefresh) {
         // 1、加载配置文件
         Resource resource = new ClassPathXmlResource(fileName);
@@ -29,10 +31,9 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         // 2、解析配置文件 + 注册 BeanDefinition
         reader.loadBeanDefinitions(resource);
-
         if (isRefresh) {
-            SimpleBeanFactory simpleBeanFactory = (SimpleBeanFactory) beanFactory;
-            simpleBeanFactory.refresh();
+            log.info("ClassPathXmlApplicationContext >> refresh");
+            beanFactory.refresh();
         }
     }
 
