@@ -2,10 +2,9 @@ package com.minis.context;
 
 import com.apple.eawt.ApplicationEvent;
 import com.minis.ApplicationEventPublisher;
-import com.minis.factory.BeanFactory;
 import com.minis.beans.BeansException;
+import com.minis.factory.BeanFactory;
 import com.minis.factory.SimpleBeanFactory;
-import com.minis.beans.BeanDefinition;
 import com.minis.reader.XmlBeanDefinitionReader;
 import com.minis.resource.ClassPathXmlResource;
 import com.minis.resource.Resource;

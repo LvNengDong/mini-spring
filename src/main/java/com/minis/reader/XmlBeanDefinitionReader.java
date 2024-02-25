@@ -4,7 +4,6 @@ import com.minis.ArgumentValue;
 import com.minis.ArgumentValues;
 import com.minis.PropertyValue;
 import com.minis.PropertyValues;
-import com.minis.factory.BeanFactory;
 import com.minis.beans.BeanDefinition;
 import com.minis.factory.SimpleBeanFactory;
 import com.minis.resource.Resource;
@@ -12,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
 
-import java.beans.ConstructorProperties;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,24 +28,24 @@ public class XmlBeanDefinitionReader {
      *  注册 BeanDefinition，而注册 BeanDefinition的方法被抽象在 beanFactory 中了，
      *  所以这里需要注入 beanFactory。
      *  */
-    SimpleBeanFactory beanFactory;
-    public XmlBeanDefinitionReader(SimpleBeanFactory beanFactory) {
-        this.beanFactory = beanFactory;
+    SimpleBeanFactory simpleBeanFactory;
+
+    public XmlBeanDefinitionReader(SimpleBeanFactory simpleBeanFactory) {
+        this.simpleBeanFactory = simpleBeanFactory;
     }
 
     public void loadBeanDefinitions(Resource resource) {
-        log.info("初始化BeanDefinition，start============");
+        log.info("解析Bean配置文件 start");
         while (resource.hasNext()) {
             Element element = (Element) resource.next();
             String beanID = element.attributeValue("id");
             String beanClassName = element.attributeValue("class");
-            /** Part3、创建BeanDefinition */
+            log.info("解析Bean配置文件 初始化BeanDefinition对象");
             BeanDefinition beanDefinition = new BeanDefinition(beanID, beanClassName);
-            // 处理属性s
-            log.info("解析配置文件，处理属性标签<property>");
+            log.info("解析Bean配置文件 处理<property>标签");
             List<Element> propertyElements = element.elements("property");
             PropertyValues PVS = new PropertyValues();
-            List<String> refs = new ArrayList<>(); // 引用的对象
+            List<String> refs = new ArrayList<>(); // 依赖的对象
             for (Element e : propertyElements) {
                 String pType = e.attributeValue("type");
                 String pName = e.attributeValue("name");
@@ -56,7 +54,7 @@ public class XmlBeanDefinitionReader {
                 boolean isRef = false;
                 String pV = "";
                 if (StringUtils.isNotEmpty(pValue)) {
-                    /* 在 bean.xml 的 bean 标签中，value 和 ref 是互斥的，value 表示基本数值类型的值， ref 表示引用了其它的 bean 对象*/
+                    /* 在 bean.xml 的 property 标签中，value 和 ref 是互斥的，value 表示基本数值类型的值， ref 表示引用了其它的 bean 对象*/
                     isRef = false;
                     pV = pValue;
                 } else if (StringUtils.isNotEmpty(pRef)) {
@@ -70,7 +68,7 @@ public class XmlBeanDefinitionReader {
             beanDefinition.setPropertyValues(PVS);
             beanDefinition.setDependsOn(refs);
             // 处理构造器参数s
-            log.info("解析配置文件，处理构造器参数标签<constructor-arg>");
+            log.info("解析Bean配置文件，处理<constructor-arg>标签");
             List<Element> constructorElements = element.elements("constructor-arg");
             ArgumentValues AVS = new ArgumentValues();
             for (Element e : constructorElements) {
@@ -81,10 +79,10 @@ public class XmlBeanDefinitionReader {
                 AVS.addArgumentValue(AV);
             }
             beanDefinition.setConstructorArgumentValues(AVS);
-            // 初始化BeanDefinition
-            this.beanFactory.registerBeanDefinition(beanDefinition);
-            this.beanFactory.registerBeanDefinition(beanID, beanDefinition);
+            log.info("解析Bean配置文件 end");
+
+            // 注册BeanDefinition
+            this.simpleBeanFactory.registerBeanDefinition(beanID, beanDefinition);
         }
-        log.info("初始化BeanDefinition，end============");
     }
 }

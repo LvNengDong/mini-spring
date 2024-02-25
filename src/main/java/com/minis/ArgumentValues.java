@@ -1,6 +1,7 @@
 package com.minis;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author lnd

@@ -1,7 +1,6 @@
 package com.minis.factory;
 
 import com.minis.beans.BeansException;
-import com.minis.beans.BeanDefinition;
 
 /**
  * @Author lnd
