@@ -1,12 +1,12 @@
-package com.minis.reader;
+package com.minis.beans.factory.xml;
 
 import com.alibaba.fastjson2.JSON;
-import com.minis.ArgumentValue;
-import com.minis.ArgumentValues;
+import com.minis.beans.factory.config.ConstructorArgumentValue;
+import com.minis.beans.factory.config.ConstructorArgumentValues;
 import com.minis.PropertyValue;
 import com.minis.PropertyValues;
-import com.minis.beans.BeanDefinition;
-import com.minis.factory.SimpleBeanFactory;
+import com.minis.beans.factory.config.BeanDefinition;
+import com.minis.beans.factory.support.SimpleBeanFactory;
 import com.minis.resource.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -71,17 +71,16 @@ public class XmlBeanDefinitionReader {
             // 处理构造器参数s
             log.info("解析Bean配置文件 处理<constructor-arg>标签");
             List<Element> constructorElements = element.elements("constructor-arg");
-            ArgumentValues AVS = new ArgumentValues();
+            ConstructorArgumentValues AVS = new ConstructorArgumentValues();
             for (Element e : constructorElements) {
                 String aType = e.attributeValue("type");
                 String aName = e.attributeValue("name");
                 String aValue = e.attributeValue("value");
-                ArgumentValue AV = new ArgumentValue(aType, aName, aValue);
+                ConstructorArgumentValue AV = new ConstructorArgumentValue(aType, aName, aValue);
                 AVS.addArgumentValue(AV);
             }
             beanDefinition.setConstructorArgumentValues(AVS);
             log.info("解析Bean配置文件 end beanDefinition:{}", JSON.toJSONString(beanDefinition));
-
             // 注册BeanDefinition
             /*
                 ！！！

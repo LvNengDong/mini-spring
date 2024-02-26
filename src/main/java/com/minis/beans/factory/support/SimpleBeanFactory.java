@@ -1,11 +1,14 @@
-package com.minis.factory;
+package com.minis.beans.factory.support;
 
 import com.alibaba.fastjson2.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.minis.*;
-import com.minis.beans.BeanDefinition;
+import com.minis.beans.factory.config.BeanDefinition;
 import com.minis.beans.BeansException;
+import com.minis.beans.factory.BeanFactory;
+import com.minis.beans.factory.config.ConstructorArgumentValue;
+import com.minis.beans.factory.config.ConstructorArgumentValues;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
@@ -125,27 +128,27 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
             // handle constructor
             clz = Class.forName(beanDefinition.getClassName());
             // 处理构造器参数
-            ArgumentValues argumentValues = beanDefinition.getConstructorArgumentValues();
-            if (argumentValues.isNotEmpty()) {
-                int argumentCount = argumentValues.getArgumentCount();
+            ConstructorArgumentValues constructorArgumentValues = beanDefinition.getConstructorArgumentValues();
+            if (constructorArgumentValues.isNotEmpty()) {
+                int argumentCount = constructorArgumentValues.getArgumentCount();
                 Class<?>[] paramTypes = new Class<?>[argumentCount];
                 Object[] paramValues = new Object[argumentCount];
                 // 对每一个参数，分数据类型分别处理
                 for (int i = 0; i < argumentCount; i++) {
-                    ArgumentValue argumentValue = argumentValues.getIndexedArgumentValue(i);
-                    if ("String".equals(argumentValue.getType()) || "java.lang.String".equals(argumentValue.getType())) {
+                    ConstructorArgumentValue constructorArgumentValue = constructorArgumentValues.getIndexedArgumentValue(i);
+                    if ("String".equals(constructorArgumentValue.getType()) || "java.lang.String".equals(constructorArgumentValue.getType())) {
                         paramTypes[i] = String.class;
-                        Object value = argumentValue.getValue();
+                        Object value = constructorArgumentValue.getValue();
                         paramValues[i] = value;
-                    } else if ("Integer".equals(argumentValue.getType()) || "java.lang.Integer".equals(argumentValue.getType())) {
+                    } else if ("Integer".equals(constructorArgumentValue.getType()) || "java.lang.Integer".equals(constructorArgumentValue.getType())) {
                         paramTypes[i] = Integer.class;
-                        paramValues[i] = Integer.valueOf((String) argumentValue.getValue());
-                    } else if ("int".equals(argumentValue.getType())) {
+                        paramValues[i] = Integer.valueOf((String) constructorArgumentValue.getValue());
+                    } else if ("int".equals(constructorArgumentValue.getType())) {
                         paramTypes[i] = int.class;
-                        paramValues[i] = Integer.valueOf((String) argumentValue.getValue());
+                        paramValues[i] = Integer.valueOf((String) constructorArgumentValue.getValue());
                     } else { // 默认为String
                         paramTypes[i] = String.class;
-                        paramValues[i] = argumentValue.getValue();
+                        paramValues[i] = constructorArgumentValue.getValue();
                     }
                 }
                 // 按照特定构造器创建实例

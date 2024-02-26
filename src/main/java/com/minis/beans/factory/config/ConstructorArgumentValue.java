@@ -1,4 +1,4 @@
-package com.minis;
+package com.minis.beans.factory.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class ArgumentValue {
+public class ConstructorArgumentValue {
 
     private String type;
     private String name;

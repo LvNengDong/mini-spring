@@ -1,6 +1,6 @@
-package com.minis.beans;
+package com.minis.beans.factory.config;
 
-import com.minis.ArgumentValues;
+import com.minis.beans.factory.config.ConstructorArgumentValues;
 import com.minis.PropertyValues;
 import lombok.Data;
 
@@ -22,7 +22,7 @@ public class BeanDefinition {
     private List<String> dependsOn;
 
     /* 构造器参数 */
-    private ArgumentValues constructorArgumentValues;
+    private ConstructorArgumentValues constructorArgumentValues;
     /* property 列表 */
     private PropertyValues propertyValues;
     /* 当一个 Bean 构造好并实例化之后是否要让框架调用初始化方法 */

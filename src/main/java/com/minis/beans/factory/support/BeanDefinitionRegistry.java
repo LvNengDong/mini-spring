@@ -1,6 +1,6 @@
-package com.minis;
+package com.minis.beans.factory.support;
 
-import com.minis.beans.BeanDefinition;
+import com.minis.beans.factory.config.BeanDefinition;
 
 /**
  * @Author lnd
