@@ -57,7 +57,6 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
         beanFactory.addBeanPostProcessor(new AutowiredAnnotationBeanPostProcessor());
     }
 
-    public List<BeanFactory>
 
     /**
      * context再对外提供一个getBean，底层就是调用的BeanFactory对应的方法
