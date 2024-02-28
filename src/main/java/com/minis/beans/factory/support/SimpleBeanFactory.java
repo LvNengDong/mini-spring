@@ -1,6 +1,8 @@
 package com.minis.beans.factory.support;
 
+import com.minis.beans.BeansException;
 import com.minis.beans.factory.BeanFactory;
+import com.minis.beans.factory.config.BeanDefinition;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,6 +17,55 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory, BeanDefinitionRegistry {
+    @Override
+    public Object getBean(String beanName) throws BeansException {
+        return null;
+    }
+
+    @Override
+    public void registerBean(String beanName, Object obj) {
+
+    }
+
+    @Override
+    public boolean containsBean(String name) {
+        return false;
+    }
+
+    @Override
+    public boolean isSingleton(String name) {
+        return false;
+    }
+
+    @Override
+    public boolean isPrototype(String name) {
+        return false;
+    }
+
+    @Override
+    public Class getType(String name) {
+        return null;
+    }
+
+    @Override
+    public void registerBeanDefinition(String name, BeanDefinition bd) {
+
+    }
+
+    @Override
+    public void removeBeanDefinition(String name) {
+
+    }
+
+    @Override
+    public BeanDefinition getBeanDefinition(String name) {
+        return null;
+    }
+
+    @Override
+    public boolean containsBeanDefinition(String name) {
+        return false;
+    }
 
     /**
      * Bean容器
