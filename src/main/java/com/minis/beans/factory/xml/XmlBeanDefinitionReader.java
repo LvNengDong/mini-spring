@@ -1,11 +1,12 @@
 package com.minis.beans.factory.xml;
 
 import com.alibaba.fastjson2.JSON;
-import com.minis.beans.factory.config.ConstructorArgumentValue;
-import com.minis.beans.factory.config.ConstructorArgumentValues;
+import com.minis.AbstractBeanFactory;
 import com.minis.PropertyValue;
 import com.minis.PropertyValues;
 import com.minis.beans.factory.config.BeanDefinition;
+import com.minis.beans.factory.config.ConstructorArgumentValue;
+import com.minis.beans.factory.config.ConstructorArgumentValues;
 import com.minis.beans.factory.support.SimpleBeanFactory;
 import com.minis.resource.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,10 @@ public class XmlBeanDefinitionReader {
      *  注册 BeanDefinition，而注册 BeanDefinition的方法被抽象在 beanFactory 中了，
      *  所以这里需要注入 beanFactory。
      *  */
-    SimpleBeanFactory simpleBeanFactory;
+    AbstractBeanFactory beanFactory;
 
-    public XmlBeanDefinitionReader(SimpleBeanFactory simpleBeanFactory) {
-        this.simpleBeanFactory = simpleBeanFactory;
+    public XmlBeanDefinitionReader(AbstractBeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
     }
 
     public void loadBeanDefinitions(Resource resource) {
@@ -89,7 +90,7 @@ public class XmlBeanDefinitionReader {
                 如果此时存在Bean之间的互相依赖，而被依赖的bean对应的BeanDefinition尚未加载到的情况，就会报错。
                 所以需要一次性先把所有的 BeanDefinition 都注册完毕
             * */
-            this.simpleBeanFactory.registerBeanDefinition(beanID, beanDefinition);
+            this.beanFactory.registerBeanDefinition(beanID, beanDefinition);
         }
 
     }

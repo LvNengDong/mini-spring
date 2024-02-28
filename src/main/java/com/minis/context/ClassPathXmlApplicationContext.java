@@ -2,6 +2,8 @@ package com.minis.context;
 
 import com.apple.eawt.ApplicationEvent;
 import com.minis.ApplicationEventPublisher;
+import com.minis.AutowireCapableBeanFactory;
+import com.minis.AutowiredAnnotationBeanPostProcessor;
 import com.minis.beans.BeansException;
 import com.minis.beans.factory.BeanFactory;
 import com.minis.beans.factory.support.SimpleBeanFactory;
@@ -9,6 +11,8 @@ import com.minis.beans.factory.xml.XmlBeanDefinitionReader;
 import com.minis.resource.ClassPathXmlResource;
 import com.minis.resource.Resource;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 /**
  * @Author lnd
@@ -18,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
 
-    private SimpleBeanFactory beanFactory;
+    private AutowireCapableBeanFactory beanFactory;
 
     /**
      * 起一个整合作用，串联整个流程
@@ -27,16 +31,33 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
     public ClassPathXmlApplicationContext(String fileName, boolean isRefresh) {
         // 1、加载配置文件
         Resource resource = new ClassPathXmlResource(fileName);
-        beanFactory = new SimpleBeanFactory();
+        beanFactory = new AutowireCapableBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         // 2、解析配置文件 + 注册 BeanDefinition
         reader.loadBeanDefinitions(resource);
         if (isRefresh) {
             log.info("ClassPathXmlApplicationContext >> refresh");
-            beanFactory.refresh();
+            //beanFactory.refresh();
+            refresh();
         }
     }
 
+    private void refresh() {
+        log.info("将BeanPostProcessor注册到BeanFactory中");
+        registerBeanPostProcessors(this.beanFactory);
+        log.info("刷新容器中的所有Bean");
+        onRefresh();
+    }
+
+    private void onRefresh() {
+        this.beanFactory.refresh();
+    }
+
+    private void registerBeanPostProcessors(AutowireCapableBeanFactory beanFactory) {
+        beanFactory.addBeanPostProcessor(new AutowiredAnnotationBeanPostProcessor());
+    }
+
+    public List<BeanFactory>
 
     /**
      * context再对外提供一个getBean，底层就是调用的BeanFactory对应的方法

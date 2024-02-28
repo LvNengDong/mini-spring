@@ -15,7 +15,11 @@ import java.util.Objects;
 @Slf4j
 public class AutowiredAnnotationBeanPostProcessor implements BeanPostProcessor {
 
-    private BeanFactory beanFactory;
+    private AutowireCapableBeanFactory beanFactory;
+    public void setBeanFactory(AutowireCapableBeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
+    }
+    public AutowireCapableBeanFactory getBeanFactory() { return beanFactory; }
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         Object result = bean;
