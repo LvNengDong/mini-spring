@@ -33,6 +33,9 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
         Resource resource = new ClassPathXmlResource(fileName);
         beanFactory = new AutowireCapableBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        // 注册BeanPostProcessor，防止有些非懒加载的bean不能被BeanPostProcessor处理
+        log.info("将BeanPostProcessor注册到BeanFactory中");
+        registerBeanPostProcessors(this.beanFactory);
         // 2、解析配置文件 + 注册 BeanDefinition
         reader.loadBeanDefinitions(resource);
         if (isRefresh) {

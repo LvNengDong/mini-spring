@@ -42,14 +42,6 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         log.info("注册BeanDefinition name:{}", name);
         beanDefinitionMap.put(name, beanDefinition);
         this.beanDefinitionNames.add(name);
-        if (!beanDefinition.isLazyInit()) {
-            log.info("非懒加载的bean，立即创建bean实例。beanName:{}", name);
-            try {
-                getBean(name);
-            } catch (BeansException e) {
-                log.info("创建bean异常 beanName:{}", name);
-            }
-        }
     }
     /*
      * parentClass ： BeanDefinitionRegistry

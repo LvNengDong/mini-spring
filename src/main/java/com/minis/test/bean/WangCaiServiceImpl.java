@@ -1,10 +1,13 @@
 package com.minis.test.bean;
 
+import lombok.Getter;
+
 /**
  * @Author lnd
  * @Description
  * @Date 2023/4/22 23:25
  */
+@Getter
 public class WangCaiServiceImpl implements XService{
 
     private String gender;

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--Part1：Bean的配置文件-->
 <beans>
+
     <bean id = "aiguo" class = "com.minis.test.bean.AiGuoServiceImpl">
         <!--Setter注入（property标签）： 属性类型 | 属性名 | 属性值-->
         <property type="String" name="country" value="中国"></property>
     </bean>
+
     <bean id = "wangcai" class = "com.minis.test.bean.WangCaiServiceImpl">
         <!-- 构造器注入（constructor-arg标签） -->
         <constructor-arg type="String" name="gender" value="公"></constructor-arg>
@@ -12,16 +14,17 @@
     </bean>
 
 
-    <bean id = "Desk" class = "com.minis.test.bean.Desk">
+    <bean id = "desk" class = "com.minis.test.bean.Desk">
         <!-- 搭配使用 -->
         <constructor-arg type="String" name="color" value="实木色"></constructor-arg>
         <property type="String" name="length" value="80"></property>
         <property type="String" name="width" value="60"></property>
         <property type="String" name="height" value="120"></property>
         <!-- 引用 ref-->
-        <property type="com.minis.test.bean.Stool" name="ref1" ref="stool"></property>
+<!--        <property type="com.minis.test.bean.Stool" name="ref1" ref="stool"></property>-->
     </bean>
 
     <bean id="stool" class="com.minis.test.bean.Stool">
+        <property type="String" name="color" value="粉色"></property>
     </bean>
 </beans>
