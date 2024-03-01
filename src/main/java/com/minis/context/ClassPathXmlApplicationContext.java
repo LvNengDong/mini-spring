@@ -1,9 +1,7 @@
 package com.minis.context;
 
 import com.apple.eawt.ApplicationEvent;
-import com.minis.ApplicationEventPublisher;
-import com.minis.AutowireCapableBeanFactory;
-import com.minis.AutowiredAnnotationBeanPostProcessor;
+import com.minis.*;
 import com.minis.beans.BeansException;
 import com.minis.beans.factory.BeanFactory;
 import com.minis.beans.factory.support.SimpleBeanFactory;
@@ -22,7 +20,7 @@ import java.util.List;
 @Slf4j
 public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
 
-    private AutowireCapableBeanFactory beanFactory;
+    private DefaultListableBeanFactory beanFactory;
 
     /**
      * 起一个整合作用，串联整个流程
@@ -31,7 +29,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
     public ClassPathXmlApplicationContext(String fileName, boolean isRefresh) {
         // 1、加载配置文件
         Resource resource = new ClassPathXmlResource(fileName);
-        beanFactory = new AutowireCapableBeanFactory();
+        beanFactory = new DefaultListableBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         // 注册BeanPostProcessor，防止有些非懒加载的bean不能被BeanPostProcessor处理
         log.info("将BeanPostProcessor注册到BeanFactory中");
@@ -56,7 +54,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
         this.beanFactory.refresh();
     }
 
-    private void registerBeanPostProcessors(AutowireCapableBeanFactory beanFactory) {
+    private void registerBeanPostProcessors(AbstractAutowireCapableBeanFactory beanFactory) {
         beanFactory.addBeanPostProcessor(new AutowiredAnnotationBeanPostProcessor());
     }
 

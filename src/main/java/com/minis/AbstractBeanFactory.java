@@ -152,14 +152,14 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
                 this.registerSingleton(beanDefinition.getId(), singleton);
                 // 进行 beanPostProcessor 处理
                 // step1：postProcessBeforeInitialization
-                applyBeanPostProcessorBeforeInitialization(singleton, beanName);
+                applyBeanPostProcessorsBeforeInitialization(singleton, beanName);
                 // step2：afterPropertiesSet
                 // step3：init-method
                 if (StringUtils.isNotEmpty(beanDefinition.getInitMethodName())) {
                     invokeInitMethod(beanDefinition, singleton);
                 }
                 // step4：postProcessAfterInitialization
-                applyBeanPostProcessorAfterInitialization(singleton, beanName);
+                applyBeanPostProcessorsAfterInitialization(singleton, beanName);
                 log.info("AbstractBeanFactory#getBean >> end beanName:{} bean:{}", beanName, JSON.toJSONString(singleton));
                 return singleton;
             }
@@ -170,7 +170,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         return singleton;
     }
 
-    abstract public Object applyBeanPostProcessorAfterInitialization(Object singleton, String beanName) throws BeansException;
+    abstract public Object applyBeanPostProcessorsAfterInitialization(Object singleton, String beanName) throws BeansException;
 
     private void invokeInitMethod(BeanDefinition beanDefinition, Object singleton) {
         try {
@@ -187,7 +187,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         }
     }
 
-    abstract public Object applyBeanPostProcessorBeforeInitialization(Object singleton, String beanName) throws BeansException;
+    abstract public Object applyBeanPostProcessorsBeforeInitialization(Object singleton, String beanName) throws BeansException;
 
     private Object createBean(BeanDefinition beanDefinition) {
         try {
