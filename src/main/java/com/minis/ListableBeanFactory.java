@@ -7,9 +7,7 @@ import java.util.Map;
 
 /**
  * @Author lnd
- * @Description
- *      接口只代码其实现类应该有接口中定义的这些特性，
- *      但是其实现类除了有这些特性，还可以实现其它BeanFactory接口具备更多的特性
+ * @Description 在具备 BeanFactory 基础特性的基础上，增加了 bean 列表查询相关的功能
  *
  *      ListableBeanFactory 可以将 Factory 内部管理的 Bean 作为一个集合来对待，
  *      拥有获取 Bean 的数量，得到所有 Bean 的名字，按照某个类型获取 Bean 列表等功能

@@ -1,23 +1,21 @@
 package com.minis;
 
-import java.util.EventObject;
-
 /**
  * @Author lnd
  * @Description
- * @Date 2023/10/15 10:29
+ * @Date 2024/3/3 14:22
  */
-public class ApplicationEvent extends EventObject {
+public class ContextRefreshEvent extends ApplicationEvent{
     private static final long serialVersionUID = 1L;
-    protected String msg;
     /**
      * Constructs a prototypical Event.
      *
      * @param source The object on which the Event initially occurred.
      * @throws IllegalArgumentException if source is null.
      */
-    public ApplicationEvent(Object source) {
+    public ContextRefreshEvent(Object source) {
         super(source);
-        this.msg = source.toString();
     }
+
+    public String toString() { return this.msg; }
 }

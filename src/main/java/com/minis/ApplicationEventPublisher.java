@@ -1,6 +1,5 @@
 package com.minis;
 
-import com.apple.eawt.ApplicationEvent;
 
 /**
  * @Author lnd
@@ -9,5 +8,6 @@ import com.apple.eawt.ApplicationEvent;
  */
 public interface ApplicationEventPublisher {
     void publishEvent(ApplicationEvent event);
+    void addApplicationListener(ApplicationListener listener);
 
 }

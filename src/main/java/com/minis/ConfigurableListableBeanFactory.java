@@ -7,4 +7,5 @@ package com.minis;
  */
 public interface ConfigurableListableBeanFactory
         extends ListableBeanFactory, AutowireCapableBeanFactory, ConfigurableBeanFactory {
+
 }

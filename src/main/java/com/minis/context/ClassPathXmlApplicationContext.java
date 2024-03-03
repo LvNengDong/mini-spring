@@ -1,6 +1,5 @@
 package com.minis.context;
 
-import com.apple.eawt.ApplicationEvent;
 import com.minis.*;
 import com.minis.beans.BeansException;
 import com.minis.beans.factory.BeanFactory;
@@ -92,6 +91,11 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
     }
     @Override
     public void publishEvent(ApplicationEvent event) {
+
+    }
+
+    @Override
+    public void addApplicationListener(ApplicationListener listener) {
 
     }
 }

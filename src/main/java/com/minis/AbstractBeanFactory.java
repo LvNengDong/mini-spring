@@ -27,10 +27,12 @@ import java.util.Map;
  */
 @Slf4j
 @NoArgsConstructor
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory, BeanDefinitionRegistry {
+public abstract class AbstractBeanFactory
+        extends DefaultSingletonBeanRegistry
+        implements ConfigurableBeanFactory, BeanDefinitionRegistry {
 
-    private Map<String, BeanDefinition> beanDefinitionMap = Maps.newHashMap();
-    private List<String> beanDefinitionNames = Lists.newArrayList();
+    protected Map<String, BeanDefinition> beanDefinitionMap = Maps.newHashMap();
+    protected List<String> beanDefinitionNames = Lists.newArrayList();
 
     /*
      * parentClass ： BeanDefinitionRegistry
