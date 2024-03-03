@@ -7,7 +7,14 @@ package com.minis.context;
  * @Date 2023/10/15 10:28
  */
 public interface ApplicationEventPublisher {
+    /**
+     * 发布事件
+     * */
     void publishEvent(ApplicationEvent event);
+
+    /**
+     * 添加事件监听器
+     * */
     void addApplicationListener(ApplicationListener listener);
 
 }

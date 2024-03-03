@@ -1,7 +1,5 @@
 package com.minis.context;
 
-import com.minis.context.ApplicationEvent;
-
 /**
  * @Author lnd
  * @Description

@@ -1,12 +1,10 @@
 package com.minis.context;
 
-import com.minis.context.ApplicationEvent;
-
 import java.util.EventListener;
 
 /**
  * @Author lnd
- * @Description
+ * @Description 事件监听器
  * @Date 2024/3/3 14:21
  */
 public class ApplicationListener implements EventListener {

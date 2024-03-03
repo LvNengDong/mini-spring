@@ -4,7 +4,7 @@ import java.util.EventObject;
 
 /**
  * @Author lnd
- * @Description
+ * @Description 事件对象
  * @Date 2023/10/15 10:29
  */
 public class ApplicationEvent extends EventObject {
