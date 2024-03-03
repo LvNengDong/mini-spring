@@ -1,6 +1,5 @@
 package com.minis.test;
 
-import com.alibaba.fastjson2.JSON;
 import com.minis.beans.BeansException;
 import com.minis.context.ClassPathXmlApplicationContext;
 import com.minis.test.bean.Desk;

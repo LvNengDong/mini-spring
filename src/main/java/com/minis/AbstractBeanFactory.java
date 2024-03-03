@@ -4,7 +4,6 @@ import com.alibaba.fastjson2.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.minis.beans.BeansException;
-import com.minis.beans.factory.BeanFactory;
 import com.minis.beans.factory.config.BeanDefinition;
 import com.minis.beans.factory.config.ConstructorArgumentValue;
 import com.minis.beans.factory.config.ConstructorArgumentValues;
@@ -71,10 +70,6 @@ public abstract class AbstractBeanFactory
         return this.beanDefinitionMap.containsKey(name);
     }
 
-    /**
-     * parentClass ： BeanFactory
-     */
-    @Override
     public void registerBean(String beanName, Object obj) {
         // 使用 DefaultSingletonBeanRegistry 的实现
         super.registerSingleton(beanName, obj);

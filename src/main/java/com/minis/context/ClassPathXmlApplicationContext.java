@@ -1,9 +1,8 @@
 package com.minis.context;
 
+import com.google.common.collect.Lists;
 import com.minis.*;
 import com.minis.beans.BeansException;
-import com.minis.beans.factory.BeanFactory;
-import com.minis.beans.factory.support.SimpleBeanFactory;
 import com.minis.beans.factory.xml.XmlBeanDefinitionReader;
 import com.minis.resource.ClassPathXmlResource;
 import com.minis.resource.Resource;
@@ -17,9 +16,15 @@ import java.util.List;
  * @Date 2023/4/22 22:45
  */
 @Slf4j
-public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
+public class ClassPathXmlApplicationContext extends AbstractApplicationContext {
 
-    private DefaultListableBeanFactory beanFactory;
+    DefaultListableBeanFactory beanFactory;
+
+    private final List<BeanFactoryPostProcessor> beanFactoryPostProcessors = Lists.newArrayList();
+
+    public ClassPathXmlApplicationContext(String fileName) {
+        this(fileName, true);
+    }
 
     /**
      * 起一个整合作用，串联整个流程
@@ -31,33 +36,54 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
         beanFactory = new DefaultListableBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         // 注册BeanPostProcessor，防止有些非懒加载的bean不能被BeanPostProcessor处理
-        log.info("将BeanPostProcessor注册到BeanFactory中");
-        registerBeanPostProcessors(this.beanFactory);
+        //log.info("将BeanPostProcessor注册到BeanFactory中");
+        //registerBeanPostProcessors(this.beanFactory);
         // 2、解析配置文件 + 注册 BeanDefinition
         reader.loadBeanDefinitions(resource);
         if (isRefresh) {
             log.info("ClassPathXmlApplicationContext >> refresh");
-            //beanFactory.refresh();
-            refresh();
+            try {
+                refresh();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
-    private void refresh() {
-        log.info("将BeanPostProcessor注册到BeanFactory中");
-        registerBeanPostProcessors(this.beanFactory);
-        log.info("刷新容器中的所有Bean");
-        onRefresh();
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
+        log.info("postProcessBeanFactory....");
     }
 
-    private void onRefresh() {
+    @Override
+    public ConfigurableListableBeanFactory getBeanFactory() throws IllegalStateException {
+        return this.beanFactory;
+    }
+
+    @Override
+    protected void onRefresh() {
         this.beanFactory.refresh();
     }
 
-    private void registerBeanPostProcessors(AbstractAutowireCapableBeanFactory beanFactory) {
+    @Override
+    protected void registerBeanPostProcessors(ConfigurableListableBeanFactory beanFactory) {
         beanFactory.addBeanPostProcessor(new AutowiredAnnotationBeanPostProcessor());
     }
+    @Override
+    protected void initApplicationEventPublisher() {
+        SimpleApplicationEventPublisher aep = new SimpleApplicationEventPublisher();
+        this.setApplicationEventPublisher(aep);
+    }
 
-
+    @Override
+    protected void registerListeners() {
+        ApplicationListener listener = new ApplicationListener();
+        this.getApplicationEventPublisher().addApplicationListener(listener);
+    }
+    @Override
+    protected void finishRefresh() {
+        publishEvent(new ContextRefreshEvent("Context Refreshed..."));
+    }
     /**
      * context再对外提供一个getBean，底层就是调用的BeanFactory对应的方法
      */
@@ -65,37 +91,13 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
         return beanFactory.getBean(beanName);
     }
 
-
-    @Override
-    public boolean containsBean(String name) {
-        return this.beanFactory.containsBean(name);
-    }
-
-    @Override
-    public boolean isSingleton(String name) {
-        return false;
-    }
-
-    @Override
-    public boolean isPrototype(String name) {
-        return false;
-    }
-
-    @Override
-    public Class getType(String name) {
-        return null;
-    }
-    @Override
-    public void registerBean(String beanName, Object obj) {
-        this.beanFactory.registerBean(beanName, obj);
-    }
     @Override
     public void publishEvent(ApplicationEvent event) {
-
+        this.getApplicationEventPublisher().publishEvent(event);
     }
 
     @Override
     public void addApplicationListener(ApplicationListener listener) {
-
+        this.getApplicationEventPublisher().addApplicationListener(listener);
     }
 }

@@ -1,0 +1,36 @@
+package com.minis.context;
+
+import com.minis.ApplicationEventPublisher;
+import com.minis.BeanFactoryPostProcessor;
+import com.minis.ConfigurableBeanFactory;
+import com.minis.ListableBeanFactory;
+import com.minis.beans.BeansException;
+import com.minis.beans.factory.BeanFactory;
+import com.minis.core.env.Environment;
+import com.minis.core.env.EnvironmentCapable;
+
+/**
+ * @Author lnd
+ * @Description
+ * @Date 2024/3/3 14:38
+ */
+public interface ApplicationContext
+        extends EnvironmentCapable, ListableBeanFactory, ConfigurableBeanFactory, ApplicationEventPublisher {
+    String getApplicationName();
+
+    long getStartupDate();
+
+    BeanFactory getBeanFactory() throws IllegalStateException;
+
+    void setEnvironment(Environment environment);
+
+    Environment getEnvironment();
+
+    void addBeanFactoryPostProcessor(BeanFactoryPostProcessor postProcessor);
+
+    void refresh() throws BeansException, IllegalStateException;
+
+    void close();
+
+    boolean isActive();
+}
