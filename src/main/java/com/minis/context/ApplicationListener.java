@@ -1,4 +1,6 @@
-package com.minis;
+package com.minis.context;
+
+import com.minis.context.ApplicationEvent;
 
 import java.util.EventListener;
 

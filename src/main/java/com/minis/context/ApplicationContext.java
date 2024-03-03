@@ -1,6 +1,5 @@
 package com.minis.context;
 
-import com.minis.ApplicationEventPublisher;
 import com.minis.BeanFactoryPostProcessor;
 import com.minis.ConfigurableBeanFactory;
 import com.minis.ListableBeanFactory;

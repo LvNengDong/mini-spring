@@ -1,4 +1,4 @@
-package com.minis;
+package com.minis.context;
 
 import java.util.EventObject;
 

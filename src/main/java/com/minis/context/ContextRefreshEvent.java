@@ -1,11 +1,13 @@
-package com.minis;
+package com.minis.context;
+
+import com.minis.context.ApplicationEvent;
 
 /**
  * @Author lnd
  * @Description
  * @Date 2024/3/3 14:22
  */
-public class ContextRefreshEvent extends ApplicationEvent{
+public class ContextRefreshEvent extends ApplicationEvent {
     private static final long serialVersionUID = 1L;
     /**
      * Constructs a prototypical Event.
