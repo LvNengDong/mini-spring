@@ -1,6 +1,7 @@
-package com.minis;
+package com.minis.beans.factory.config;
 
 import com.minis.beans.factory.BeanFactory;
+import com.minis.beans.factory.config.BeanPostProcessor;
 import com.minis.beans.factory.config.SingletonBeanRegistry;
 
 /**

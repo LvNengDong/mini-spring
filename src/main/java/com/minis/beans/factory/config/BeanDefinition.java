@@ -1,6 +1,6 @@
 package com.minis.beans.factory.config;
 
-import com.minis.PropertyValues;
+import com.minis.beans.PropertyValues;
 import lombok.Data;
 
 import java.util.List;

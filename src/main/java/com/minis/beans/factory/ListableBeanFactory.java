@@ -1,4 +1,4 @@
-package com.minis;
+package com.minis.beans.factory;
 
 import com.minis.beans.BeansException;
 import com.minis.beans.factory.BeanFactory;

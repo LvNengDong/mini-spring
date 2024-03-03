@@ -1,4 +1,6 @@
-package com.minis;
+package com.minis.beans;
+
+import com.minis.beans.PropertyValue;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.minis.context;
 
-import com.minis.BeanFactoryPostProcessor;
-import com.minis.BeanPostProcessor;
-import com.minis.ConfigurableListableBeanFactory;
+import com.minis.beans.factory.config.BeanFactoryPostProcessor;
+import com.minis.beans.factory.config.BeanPostProcessor;
+import com.minis.beans.factory.config.ConfigurableListableBeanFactory;
 import com.minis.beans.BeansException;
 import com.minis.core.env.Environment;
 import lombok.Getter;

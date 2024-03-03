@@ -1,4 +1,4 @@
-package com.minis.resource;
+package com.minis.core.resource;
 
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;

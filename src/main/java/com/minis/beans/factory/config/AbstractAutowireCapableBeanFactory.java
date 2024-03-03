@@ -1,6 +1,7 @@
-package com.minis;
+package com.minis.beans.factory.config;
 
 import com.google.common.collect.Lists;
+import com.minis.beans.factory.support.AbstractBeanFactory;
 import com.minis.beans.BeansException;
 
 import java.util.List;

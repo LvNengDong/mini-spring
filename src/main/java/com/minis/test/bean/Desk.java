@@ -1,6 +1,6 @@
 package com.minis.test.bean;
 
-import com.minis.Autowired;
+import com.minis.beans.factory.annotation.Autowired;
 import lombok.Getter;
 import lombok.Setter;
 

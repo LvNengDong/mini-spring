@@ -1,5 +1,6 @@
-package com.minis;
+package com.minis.beans.factory.annotation;
 
+import com.minis.beans.factory.config.BeanPostProcessor;
 import com.minis.beans.BeansException;
 import com.minis.beans.factory.BeanFactory;
 import lombok.extern.slf4j.Slf4j;

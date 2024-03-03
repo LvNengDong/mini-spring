@@ -1,4 +1,6 @@
-package com.minis;
+package com.minis.beans.factory.config;
+
+import com.minis.beans.factory.ListableBeanFactory;
 
 /**
  * @Author lnd

@@ -1,8 +1,8 @@
 package com.minis.context;
 
-import com.minis.BeanFactoryPostProcessor;
-import com.minis.ConfigurableBeanFactory;
-import com.minis.ListableBeanFactory;
+import com.minis.beans.factory.config.BeanFactoryPostProcessor;
+import com.minis.beans.factory.config.ConfigurableBeanFactory;
+import com.minis.beans.factory.ListableBeanFactory;
 import com.minis.beans.BeansException;
 import com.minis.beans.factory.BeanFactory;
 import com.minis.core.env.Environment;

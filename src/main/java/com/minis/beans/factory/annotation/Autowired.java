@@ -1,4 +1,4 @@
-package com.minis;
+package com.minis.beans.factory.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
