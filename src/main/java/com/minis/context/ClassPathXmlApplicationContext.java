@@ -40,7 +40,12 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
     }
 
     /**
-     * context再对外提供一个 registerBeanDefinition，底层就是调用的BeanFactory 的 registerBeanDefinition 方法，
+     * 装饰器模式
+     *
+     * context再对外提供一个 registerBeanDefinition，这保证了即使没有配置文件，我们也可以通过手动调用
+     *  ClassPathXmlApplicationContext#registerBeanDefinition(com.minis.beans.BeanDefinition) 方法来实现 Bean 的注册功能
+     *
+     * 底层就是调用的 SimpleBeanFactory 的 registerBeanDefinition 方法，
      * 用于手动注册 BeanDefinition 到容器中
      */
     @Override
