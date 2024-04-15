@@ -36,6 +36,7 @@ public class ClassPathXmlResource implements Resource {
         }
     }
 
+    // 装饰器模式：直接使用 SAXReader 中的 rootElement 对象实现的迭代器
     /* hasNext 和 next 都是 Iterator 接口要求必须优子类重写的类 */
     @Override
     public boolean hasNext() {

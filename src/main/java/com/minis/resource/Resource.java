@@ -11,6 +11,8 @@ public interface Resource extends Iterator<Object> {
 }
 
 /*
+
+
 1、 Iterator 接口的作用？
     Java中实现Iterator接口的作用是用于遍历集合类中的元素，可以在不暴露集合内部实现细节的情况下，
     对集合进行迭代访问。Iterator接口提供了一些方法，例如next()用于获取下一个元素，hasNext()
@@ -27,6 +29,9 @@ public interface Resource extends Iterator<Object> {
 
     但是在Spring中，内存映像(document)是不能被直接使用的，document 中的数据是很多个 BeanDefinition 的合集，
     Spring 需要将 document 解析处理成一个个 BeanDefinition，所以这里需要用到一个操作就是“遍历”。
+
+    > 重要！！！ 迭代器模式：将遍历功能单独抽象成接口，由具体的容器自己去实现。显然，Resource应该具有遍历功能，所以可以实现 Iterator 接口，并且自行实现遍历方法
+    > 并且 SAXReader 自己提供了 Iterator 接口的方法实现，我们可以使用包装模式直接使用，不用自己重复造轮子
 
     将Bean定义信息转换成 BeanDefinition 的过程是由 XxxReader 来完成的，而 XmlResource 需要为 XxxReader 提供
     document 数据。关于如何处理 document 数据，接下来会有两种做法：
