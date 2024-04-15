@@ -17,9 +17,13 @@ import java.util.Map;
  */
 public class ClassPathXmlApplicationContext {
 
-    /** Part3：Bean的内存映像 */
+    /**
+     * Part3：Bean的内存映像
+     */
     private List<BeanDefinition> beanDefinitions = Lists.newArrayList();
-    /** Part5：保存Bean (Map)*/
+    /**
+     * Part5：保存Bean (Map)
+     */
     private Map<String, Object> singletons = Maps.newHashMap();
 
     /**
@@ -60,7 +64,7 @@ public class ClassPathXmlApplicationContext {
 
     /**
      * Part2：配置文件加载器
-     * */
+     */
     private void readXml(String fileName) {
         SAXReader saxReader = new SAXReader();
         try {
