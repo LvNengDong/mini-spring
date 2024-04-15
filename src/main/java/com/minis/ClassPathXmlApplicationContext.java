@@ -37,7 +37,7 @@ public class ClassPathXmlApplicationContext {
     }
 
     /**
-     * 利用反射创建bean实例，并存储在singletons中
+     * 利用反射在运行时态创建bean实例，并存储在singletons中
      */
     private void instanceBeans() {
         for (BeanDefinition beanDefinition : beanDefinitions) {
@@ -70,14 +70,15 @@ public class ClassPathXmlApplicationContext {
         try {
             URL xmlPath = this.getClass().getClassLoader().getResource(fileName);
             Document document = saxReader.read(xmlPath);
-            Element rootElement = document.getRootElement();
-            //对配置文件中的每一个<bean>，进行处理
-            for (Element element : (List<Element>) rootElement.elements()) {
-                //获取Bean的基本信息
-                String beanID = element.attributeValue("id");
-                String beanClassName = element.attributeValue("class");
+            Element rootElement = document.getRootElement(); // rootElement：<beans></beans>
+            List<Element> beans = rootElement.elements();
+            // 对配置文件中的每一个<bean>，进行处理
+            for (Element bean : beans) {
+                // 获取Bean的基本信息
+                String beanID = bean.attributeValue("id");
+                String beanClassName = bean.attributeValue("class");
+                // 将Bean的定义存放到beanDefinitions
                 BeanDefinition beanDefinition = new BeanDefinition(beanID, beanClassName);
-                //将Bean的定义存放到beanDefinitions
                 beanDefinitions.add(beanDefinition);
             }
         } catch (Exception e) {
