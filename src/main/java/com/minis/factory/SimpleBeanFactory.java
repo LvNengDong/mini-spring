@@ -33,14 +33,6 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
     private List<String> beanDefinitionNames = Lists.newArrayList();
 
     /**
-     * Bean容器
-     *  因为 DefaultSingletonBeanRegistry 维护了一个单例 singletons，所以这里直接使用其父类中的，确保默认情况下创建的是单例 bean
-     *  同理，beanNames 也是类似的
-     */
-    // private Map<String, Object> singletons = new HashMap<>();
-    // private List beanNames = new ArrayList<>();
-
-    /**
      * parentClass ： BeanFactory
      * Part6、保存 bean 到 bean 容器中
      *
@@ -117,7 +109,7 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
     /**
      * parentClass ： BeanDefinitionRegistry
      * 作用： 注册 BeanDefinition
-     * 备注： 目前这个方法不再是继承自 BeanFactory 接口中的方法了，而是继承自 BeanDefinitionRegistry 中的方法
+     * 备注： 目前这个方法不再是继承自 BeanFactory 接口中的方法了，而是继承自 BeanDefinitionRegistry 中的方法。（其实这才是正解）
      * */
     @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {

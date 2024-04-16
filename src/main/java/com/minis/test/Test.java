@@ -20,9 +20,6 @@ public class Test {
         //XService wangcai = (XService) context.getBean("wangcai");
         //wangcai.sayWhat();
         //FormatUtil.end();
-
     }
-
-
 }
 

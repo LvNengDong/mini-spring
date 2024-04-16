@@ -5,7 +5,6 @@ import com.minis.ApplicationEventPublisher;
 import com.minis.factory.BeanFactory;
 import com.minis.beans.BeansException;
 import com.minis.factory.SimpleBeanFactory;
-import com.minis.beans.BeanDefinition;
 import com.minis.reader.XmlBeanDefinitionReader;
 import com.minis.resource.ClassPathXmlResource;
 import com.minis.resource.Resource;
@@ -27,7 +26,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
         // 1、加载配置文件
         Resource resource = new ClassPathXmlResource(fileName);
         beanFactory = new SimpleBeanFactory();
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory); // reader组装一下beanFactory
         // 2、解析配置文件 + 注册 BeanDefinition
         reader.loadBeanDefinitions(resource);
     }
@@ -48,17 +47,17 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
 
     @Override
     public boolean isSingleton(String name) {
-        return false;
+        return this.beanFactory.isSingleton(name);
     }
 
     @Override
     public boolean isPrototype(String name) {
-        return false;
+        return this.beanFactory.isPrototype(name);
     }
 
     @Override
     public Class getType(String name) {
-        return null;
+        return this.beanFactory.getType(name);
     }
     @Override
     public void registerBean(String beanName, Object obj) {

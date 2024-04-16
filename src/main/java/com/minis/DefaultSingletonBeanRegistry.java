@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
     // 容器中存放所有bean的名称的列表
-    private List<String> beanNames = new ArrayList<>();
+    private List<String> singletonBeanNames = new ArrayList<>();
 
     // 容器中存放所有bean实例的map
     private final Map<String, Object> singletons = new ConcurrentHashMap<>(256);
@@ -22,7 +22,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
     public void registerSingleton(String beanName, Object singletonObject) {
         synchronized (this.singletons) { //线程安全
             singletons.put(beanName, singletonObject);
-            this.beanNames.add(beanName);
+            this.singletonBeanNames.add(beanName);
         }
     }
 
@@ -33,17 +33,17 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
     @Override
     public boolean containsSingleton(String beanName) {
-        return this.beanNames.contains(beanName);
+        return this.singletonBeanNames.contains(beanName);
     }
 
     @Override
     public String[] getSingletonNames() {
-        return (String[]) this.beanNames.toArray();
+        return (String[]) this.singletonBeanNames.toArray();
     }
 
     protected void removeSingleton(String beanName) {
         synchronized (this.singletons) {
-            this.beanNames.remove(beanName);
+            this.singletonBeanNames.remove(beanName);
             this.singletons.remove(beanName);
         }
     }
