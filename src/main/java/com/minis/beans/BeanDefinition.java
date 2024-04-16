@@ -30,7 +30,7 @@ public class BeanDefinition {
     private volatile Object beanClass;
     private String scope = SCOPE_SINGLETON;
 
-    public BeanDefinition (String id, String className) {
+    public BeanDefinition(String id, String className) {
         this.id = id;
         this.className = className;
     }
