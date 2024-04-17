@@ -11,7 +11,7 @@ import java.util.Objects;
  * @Author lnd
  * @Description
  *      extends AbstractBeanFactory 的作用是为了得到 BeanFactory 的基础能力；
- *      implements AutowireCapableBeanFactory 的作用是为了获取解析 Autowire 的能力
+ *      implements AutowireCapableBeanFactory 的作用是为了重写解析 Autowire 的能力
  * @Date 2024/3/1 22:58
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory

@@ -29,7 +29,6 @@ public class Test {
         System.out.println(FormatUtil.prettyJson(stool));
         System.out.println(desk);
         FormatUtil.end();
-
     }
 }
 

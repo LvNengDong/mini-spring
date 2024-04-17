@@ -11,7 +11,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ConstructorArgumentValue {
-
     private String type;
     private String name;
     private Object value;
