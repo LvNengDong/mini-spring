@@ -29,8 +29,8 @@ import java.util.Map;
 @Slf4j
 public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory, BeanDefinitionRegistry {
     // BeanDefinition不涉及单例多例的概念，所以放在比较通用的 SimpleBeanFactory 类中即可
-    private Map<String, BeanDefinition> beanDefinitionMap = Maps.newHashMap();
-    private List<String> beanDefinitionNames = Lists.newArrayList();
+    private final Map<String, BeanDefinition> beanDefinitionMap = Maps.newHashMap();
+    private final List<String> beanDefinitionNames = Lists.newArrayList();
 
     /**
      * parentClass ： BeanFactory
