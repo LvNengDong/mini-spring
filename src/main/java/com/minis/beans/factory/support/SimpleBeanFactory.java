@@ -213,10 +213,6 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
         }
     }
 
-    /**
-     * parentClass ： BeanFactory
-     */
-    @Override
     public void registerBean(String beanName, Object obj) {
         // 使用 DefaultSingletonBeanRegistry 的实现
         super.registerSingleton(beanName, obj);
