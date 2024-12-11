@@ -20,11 +20,11 @@ public class ClassPathXmlApplicationContext {
     /**
      * Part3：Bean的内存映像
      */
-    private List<BeanDefinition> beanDefinitions = Lists.newArrayList();
+    private final List<BeanDefinition> beanDefinitions = Lists.newArrayList();
     /**
      * Part5：保存Bean (Map)
      */
-    private Map<String, Object> singletons = Maps.newHashMap();
+    private final Map<String, Object> singletons = Maps.newHashMap();
 
     /**
      * 在构造器方法中做两件事
