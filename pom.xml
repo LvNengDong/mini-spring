@@ -7,7 +7,7 @@
     <groupId>com.minis</groupId>
     <artifactId>mini-spring</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>war</packaging> <!-- 打包方式为war -->
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -72,6 +72,7 @@
     </dependencies>
 
 
+
     <build>
         <finalName>mini-spring</finalName>
         <pluginManagement>
@@ -87,18 +88,21 @@
                 <!--                    </configuration>-->
                 <!--                </plugin>-->
 
-                <!--运行插件：Tomcat-->
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                    <configuration>
-                        <!--告诉Tomcat要编译哪一个项目-->
-                        <path>/${project.artifactId}</path>
-                    </configuration>
-                </plugin>
+
             </plugins>
         </pluginManagement>
+        <plugins>
+            <!--运行插件：Tomcat-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <!--告诉Tomcat要编译哪一个项目-->
+                    <path>/</path>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
