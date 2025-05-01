@@ -1,6 +1,8 @@
 package com.minis.web;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -19,8 +21,11 @@ import java.util.Map;
  * @Description
  * @Date 2024/4/17 14:45
  */
+// 注意注意：这个类中使用到的外部依赖，都需要放到 WEB-INF/lib 目录下，否则会报错
 @Slf4j
 public class DispatcherServlet extends HttpServlet {
+
+    //private static final Logger log = LoggerFactory.getLogger(DispatcherServlet.class);
 
     private Map<String, MappingValue> mappingValues; // uri:MappingValue
     private Map<String, Class<?>> mappingClz = new HashMap<>(); // uri:Clazz
