@@ -4,6 +4,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!--
+        Tomcat启动时会扫描该配置文件
+        1、加载 com.minis.web.DispatcherServlet
+        2、DispatcherServlet 里面会读取 minisMVC-servlet.xml 配置文件，并加载其中的bean
+    -->
     <servlet>
         <servlet-name>minisMVC</servlet-name>
         <servlet-class>com.minis.web.DispatcherServlet</servlet-class> <!--Servlet对应类-->
@@ -14,10 +19,9 @@
         <load-on-startup>1</load-on-startup><!--值越小启动优先级越高-->
     </servlet>
 
-    <!--服务端资源对外暴露的访问路径-->
+    <!--服务端资源对外暴露的访问路径， / 标识拦截所有的请求，都交由 minisMVC Servlet 处理-->
     <servlet-mapping>
         <servlet-name>minisMVC</servlet-name>
         <url-pattern>/</url-pattern>
-        <!---->
     </servlet-mapping>
 </web-app>

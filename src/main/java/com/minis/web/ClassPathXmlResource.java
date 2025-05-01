@@ -11,6 +11,11 @@ import java.util.Iterator;
 /**
  * @Author lnd
  * @Description
+ *  作用：加载XML类型的文件到内存中，
+ *  输入：xxx.xml 路径
+ *  输出：Document 对象
+ *  Example：将 minisMVC-servlet.xml 配置文件加载到内存中，生成 Resource 对象，Resource 对象包括 Document 对象、RootElement 对象、ElementIterator 对象
+ *  其中，Document 对象用于读取 XML 文件，RootElement 对象用于获取 XML 文件的根元素，ElementIterator 对象用于遍历 XML 文件的所有元素
  * @Date 2024/4/17 15:05
  */
 public class ClassPathXmlResource implements Resource {
