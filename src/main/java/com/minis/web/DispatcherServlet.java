@@ -28,6 +28,8 @@ import java.util.Map;
 @Slf4j
 public class DispatcherServlet extends HttpServlet {
 
+    WebApplicationContext webApplicationContext;
+
     /*
         | 变量             | 作用                                                   |
         |------------------|--------------------------------------------------------|
@@ -51,15 +53,16 @@ public class DispatcherServlet extends HttpServlet {
     private String contextConfigLocation;
 
     public void init(ServletConfig config) throws ServletException {
-        super.init(config); // 调用父类 HttpServlet 的 init 方法，加载 web.xml 中的配置信息
         try {
+            super.init(config); // 调用父类 HttpServlet 的 init 方法，加载 web.xml 中的配置信息
+            this.webApplicationContext = (WebApplicationContext) this.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
             contextConfigLocation = config.getInitParameter("contextConfigLocation"); // 获取 web.xml 中的 init-param.contextConfigLocation 配置信息
             URL xmlPath = this.getServletContext().getResource(contextConfigLocation);
             this.packageNames = XmlScanComponentHelper.getNodeValue(xmlPath);
+            refresh();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        refresh();
     }
 
     // 读取 mappingValues 中的 Bean 定义，加载类，创建实例
