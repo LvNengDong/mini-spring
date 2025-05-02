@@ -1,6 +1,5 @@
 package com.minis.context;
 
-import com.google.common.collect.Lists;
 import com.minis.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import com.minis.beans.factory.config.BeanFactoryPostProcessor;
 import com.minis.beans.factory.config.ConfigurableListableBeanFactory;
@@ -11,6 +10,7 @@ import com.minis.core.resource.ClassPathXmlResource;
 import com.minis.core.resource.Resource;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class ClassPathXmlApplicationContext extends AbstractApplicationContext {
 
     DefaultListableBeanFactory beanFactory;
 
-    private final List<BeanFactoryPostProcessor> beanFactoryPostProcessors = Lists.newArrayList();
+    private final List<BeanFactoryPostProcessor> beanFactoryPostProcessors = new ArrayList<>();
 
     public ClassPathXmlApplicationContext(String fileName) {
         this(fileName, true);
