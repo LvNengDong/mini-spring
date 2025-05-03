@@ -28,7 +28,7 @@ public class ContextLoaderListener implements ServletContextListener {
         // 从 web.xml 中获取配置文件的路径，默认为 applicationContext.xml
         String configLocation = servletContext.getInitParameter(CONFIG_LOCATION_PARAM);
         // 通过上一步的配置文件，创建一个 AnnotationConfigApplicationContext 对象
-        WebApplicationContext wac = new AnnotationConfigWebApplicationContext(configLocation);
+        WebApplicationContext wac = new XmlWebApplicationContext(configLocation);
         // 让 AnnotationConfigApplicationContext 对象 和 ServletContext 对象 能相互引用
         wac.setServletContext(servletContext);
         this.context = wac;

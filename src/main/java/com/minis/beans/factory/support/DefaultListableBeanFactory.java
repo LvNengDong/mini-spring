@@ -14,13 +14,14 @@ import java.util.Map;
 /**
  * @Author lnd
  * @Description IOC引擎
- *      集大成者
- *
+ * 集大成者
  * @Date 2024/3/1 22:45
  */
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
         implements ConfigurableListableBeanFactory {
 
+
+    ConfigurableListableBeanFactory parentBeanFactory;
 
     @Override
     public int getBeanDefinitionCount() {
@@ -29,7 +30,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
     @Override
     public String[] getBeanDefinitionNames() {
-        return (String[])this.beanDefinitionNames.toArray();
+        return (String[]) this.beanDefinitionNames.toArray();
     }
 
     @Override
@@ -58,8 +59,12 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
         Map<String, T> result = new LinkedHashMap<>(beanNames.length);
         for (String beanName : beanNames) {
             Object beanInstance = getBean(beanName);
-            result.put(beanName, (T)beanInstance);
+            result.put(beanName, (T) beanInstance);
         }
         return result;
+    }
+
+    public void setParent(ConfigurableListableBeanFactory beanFactory) {
+        this.parentBeanFactory = beanFactory;
     }
 }
