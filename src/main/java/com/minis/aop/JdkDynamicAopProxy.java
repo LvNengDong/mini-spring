@@ -1,6 +1,7 @@
 package com.minis.aop;
 
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -15,9 +16,11 @@ import java.lang.reflect.Proxy;
 public class JdkDynamicAopProxy implements AopProxy, InvocationHandler {
 
     private Object target;
+    private Advisor advisor;
 
-    public JdkDynamicAopProxy(Object target) {
+    public JdkDynamicAopProxy(Object target, Advisor advisor) {
         this.target = target;
+        this.advisor = advisor;
     }
 
 
@@ -30,6 +33,9 @@ public class JdkDynamicAopProxy implements AopProxy, InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         log.info("-----before call real object, dynamic proxy........");
-        return method.invoke(target, args);
+        Class targetClass = (target != null ? target.getClass() : null);
+        MethodInterceptor interceptor = this.advisor.getMethodInterceptor();
+        MethodInvocation invocation = new ReflectiveMethodInvocation(proxy, target, method, args, targetClass);
+        return interceptor.invoke(invocation);
     }
 }

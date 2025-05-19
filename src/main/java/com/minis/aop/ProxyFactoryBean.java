@@ -1,5 +1,6 @@
 package com.minis.aop;
 
+import com.minis.beans.factory.BeanFactory;
 import com.minis.beans.factory.FactoryBean;
 import com.minis.util.ClassUtils;
 import lombok.Getter;
@@ -26,6 +27,11 @@ public class ProxyFactoryBean implements FactoryBean<Object> {
     @Getter
     private String[] targetName;
 
+    private Advisor advisor;
+
+    private String interceptorName;
+
+    private BeanFactory beanFactory;
 
 
     @Override
@@ -36,6 +42,16 @@ public class ProxyFactoryBean implements FactoryBean<Object> {
     @Override
     public Class<?> getObjectType() {
         return null;
+    }
+
+    private synchronized void initializeAdvisor() {
+        try {
+            Object advice = this.beanFactory.getBean(this.interceptorName);
+            advisor = new DefaultAdvisor();
+            advisor.setMethodInterceptor((MethodInterceptor)advice);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -49,7 +65,7 @@ public class ProxyFactoryBean implements FactoryBean<Object> {
     }
 
     private AopProxy createAopProxy() {
-        return getAopProxyFactory().createAopProxy(target);
+        return getAopProxyFactory().createAopProxy(target, this.advisor);
     }
 
     private AopProxyFactory getAopProxyFactory() {
