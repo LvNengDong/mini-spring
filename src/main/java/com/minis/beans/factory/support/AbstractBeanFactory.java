@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import com.minis.beans.PropertyValue;
 import com.minis.beans.PropertyValues;
 import com.minis.beans.BeansException;
+import com.minis.beans.factory.FactoryBean;
 import com.minis.beans.factory.config.BeanDefinition;
 import com.minis.beans.factory.config.ConfigurableBeanFactory;
 import com.minis.beans.factory.config.ConstructorArgumentValue;
@@ -28,7 +29,7 @@ import java.util.Map;
 @Slf4j
 @NoArgsConstructor
 public abstract class AbstractBeanFactory
-        extends DefaultSingletonBeanRegistry
+        extends FactoryBeanRegistrySupport
         implements ConfigurableBeanFactory, BeanDefinitionRegistry {
 
     protected Map<String, BeanDefinition> beanDefinitionMap = Maps.newHashMap();
@@ -165,7 +166,19 @@ public abstract class AbstractBeanFactory
             return singleton;
         }
         log.info("getBean >> 尝试直接从单例池中获取Bean实例成功，直接返回单例对象 beanName:{}", beanName);
+        // 处理 FactoryBean
+        if(singleton instanceof FactoryBean) {
+            return this.getObjectForBeanInstance(singleton, beanName);
+        }
         return singleton;
+    }
+
+    private Object getObjectForBeanInstance(Object beanInstance, String beanName) {
+        if(!(beanInstance instanceof FactoryBean)) {
+            return beanInstance;
+        }
+        FactoryBean<?> factory = (FactoryBean<?>) beanInstance;
+        return getObjectFromFactoryBean(factory, beanName);
     }
 
     abstract public Object applyBeanPostProcessorsAfterInitialization(Object singleton, String beanName) throws BeansException;
