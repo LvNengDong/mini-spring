@@ -1,7 +1,7 @@
 package com.minis.reader;
 
-import com.minis.factory.BeanFactory;
 import com.minis.beans.BeanDefinition;
+import com.minis.factory.SimpleBeanFactory;
 import com.minis.resource.Resource;
 import org.dom4j.Element;
 
@@ -28,11 +28,11 @@ public class XmlBeanDefinitionReader {
     public void loadBeanDefinitions(Resource resource) {
         while (resource.hasNext()) {
             Element element = (Element) resource.next();
-            String beanID = element.attributeValue("id");
+            String beanId = element.attributeValue("id");
             String beanClassName = element.attributeValue("class");
             /** Part3、创建BeanDefinition */
-            BeanDefinition beanDefinition = new BeanDefinition(beanID, beanClassName);
-            this.beanFactory.registerBeanDefinition(beanID, beanDefinition);
+            BeanDefinition beanDefinition = new BeanDefinition(beanId, beanClassName);
+            this.beanFactory.registerBeanDefinition(beanId, beanDefinition);
         }
     }
 }

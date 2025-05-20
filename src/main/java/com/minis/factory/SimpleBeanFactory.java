@@ -8,6 +8,7 @@ import com.minis.DefaultSingletonBeanRegistry;
 import com.minis.beans.BeanDefinition;
 import com.minis.beans.BeansException;
 import com.minis.factory.BeanFactory;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -19,22 +20,17 @@ import java.util.Map;
  * @Author lnd
  * @Description
  *      Q：SimpleBeanFactory 继承 DefaultSingletonBeanRegistry 的原因是什么？
- *         A：确保我们通过 SimpleBeanFactory 创建的 Bean 默认就是单例的。
- *            我们需要将 SimpleBeanFactory 中关于创建 Bean 的直接方法，而是间接使用 DefaultSingletonBeanRegistry 中创建 Bean 的方法，
- *            以确保得到单例 bean。
- *            DefaultSingletonBeanRegistry 通过 SimpleBeanFactory 对外暴露服务，而在 Spring 中默认创建的bean就是单例的，
- *            正是通过 `SimpleBeanFactory extends DefaultSingletonBeanRegistry` 来实现的
+ *          A：BeanFactory 中关于 bean 注册、获取等方法实际是由 DefaultSingletonBeanRegistry 提供的，
+ *          SimpleBeanFactory 起到了类似网关的效果，提供统一的对外服务，在内部通过调用不同的实现类完成功能。
  * @Date 2023/10/14 14:12
  */
 @Slf4j
 public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory, BeanDefinitionRegistry {
-    // BeanDefinition不涉及单例多例的概念，所以放在比较通用的 SimpleBeanFactory 类中即可
+    // BeanDefinition 不涉及单例多例的概念，所以放在比较通用的 SimpleBeanFactory 类中即可
     private final Map<String, BeanDefinition> beanDefinitionMap = Maps.newHashMap();
     private final List<String> beanDefinitionNames = Lists.newArrayList();
 
     /**
-     * parentClass ： BeanFactory
-     * Part6、保存 bean 到 bean 容器中
      *      1、保存 bean 到 map（singletons） 中
      *      2、获取 bean
      */
@@ -50,13 +46,13 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                 throw new BeansException(beanName + " 对应的beanDefinition不存在");
             } else {
                 try {
-                    /* Part4、创建实例Bean */
+                    /* 创建实例Bean */
                     singleton = Class.forName(beanDefinition.getClassName()).newInstance();
                 } catch (Exception e) {
                     log.error("根据beanDefinition创建Bean实例异常,beanDefinition:{}", JSON.toJSONString(beanDefinition), e);
                     throw new BeansException(e.toString());
                 }
-                /* Part5、保存 bean 到 bean 容器中(走默认的单例实现)*/
+                /* 保存 bean 到 bean 容器中(走默认的单例实现)*/
                 super.registerSingleton(beanName, singleton);
             }
         }
@@ -64,51 +60,34 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
     }
 
 
-    /**
-     * parentClass ： BeanFactory
-     * */
     @Override
     public void registerBean(String beanName, Object obj) {
-        // 使用 DefaultSingletonBeanRegistry 的实现
         super.registerSingleton(beanName, obj);
     }
 
-    /**
-     * parentClass ： BeanFactory
-     * */
     @Override
     public boolean containsBean(String beanName) {
-        // 使用 DefaultSingletonBeanRegistry 的实现
         return super.containsSingleton(beanName);
     }
 
-    /**
-     * parentClass ： BeanFactory
-     * */
     @Override
     public boolean isSingleton(String name) {
         return beanDefinitionMap.get(name).isSingleton();
     }
 
-    /**
-     * parentClass ： BeanFactory
-     * */
+
     @Override
     public boolean isPrototype(String name) {
         return beanDefinitionMap.get(name).isPrototype();
     }
-    /**
-     * parentClass ： BeanFactory
-     * */
+
     @Override
     public Class getType(String name) {
         return null;
     }
 
     /**
-     * parentClass ： BeanDefinitionRegistry
-     * 作用： 注册 BeanDefinition
-     * 备注： 目前这个方法不再是继承自 BeanFactory 接口中的方法了，而是继承自 BeanDefinitionRegistry 中的方法。（其实这才是正解）
+     * 注册 BeanDefinition
      * */
     @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
