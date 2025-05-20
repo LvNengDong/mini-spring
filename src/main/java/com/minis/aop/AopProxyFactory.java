@@ -6,5 +6,5 @@ package com.minis.aop;
  * @Date 2025/5/19 17:20
  */
 public interface AopProxyFactory {
-    AopProxy createAopProxy(Object target, Advisor advisor);
+    AopProxy createAopProxy(Object target, PointcutAdvisor advisor);
 }

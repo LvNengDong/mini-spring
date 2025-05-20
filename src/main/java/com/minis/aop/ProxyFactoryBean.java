@@ -18,16 +18,18 @@ public class ProxyFactoryBean implements FactoryBean<Object> {
 
     private AopProxyFactory aopProxyFactory;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Object target;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String[] interceptorNames;
 
     @Getter
     private String[] targetName;
 
-    private Advisor advisor;
+    private PointcutAdvisor advisor;
 
     private String interceptorName;
 
@@ -47,8 +49,7 @@ public class ProxyFactoryBean implements FactoryBean<Object> {
     private synchronized void initializeAdvisor() {
         try {
             Object advice = this.beanFactory.getBean(this.interceptorName); // 获取拦截器
-            advisor = new DefaultAdvisor();
-            advisor.setMethodInterceptor((MethodInterceptor)advice);
+            this.advisor = (PointcutAdvisor) advice;
         } catch (Exception e) {
             e.printStackTrace();
         }
