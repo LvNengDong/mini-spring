@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--Part1：Bean的配置文件-->
 <beans>
-    <bean id = "aiguo" class = "com.minis.test.bean.AiGuoServiceImpl"></bean>
-    <bean id = "wangcai" class = "com.minis.test.bean.WangCaiServiceImpl"></bean>
+    <bean id = "aiguo" class = "com.minis.test.service.impl.AiGuoServiceImpl"></bean>
+    <bean id = "wangcai" class = "com.minis.test.service.impl.WangCaiServiceImpl"></bean>
 </beans>

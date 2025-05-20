@@ -1,4 +1,6 @@
-package com.minis.test.bean;
+package com.minis.test.service.impl;
+
+import com.minis.test.service.XService;
 
 /**
  * @Author lnd

@@ -1,7 +1,7 @@
 package com.minis.test;
 
 import com.minis.ClassPathXmlApplicationContext;
-import com.minis.test.bean.XService;
+import com.minis.test.service.XService;
 import com.minis.test.utils.printLog.FormatUtil;
 
 /**

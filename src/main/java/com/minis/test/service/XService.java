@@ -1,4 +1,4 @@
-package com.minis.test.bean;
+package com.minis.test.service;
 
 /**
  * @Author lnd
