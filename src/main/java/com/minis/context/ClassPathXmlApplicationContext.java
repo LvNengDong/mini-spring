@@ -15,7 +15,7 @@ import com.minis.resource.Resource;
  */
 public class ClassPathXmlApplicationContext implements BeanFactory {
 
-    private BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
     /*
      *  起一个整合作用，串联整个流程
@@ -42,7 +42,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
     /**
      * 装饰器模式
      *
-     * context再对外提供一个 registerBeanDefinition，这保证了即使没有配置文件，我们也可以通过手动调用
+     * context 再对外提供一个 registerBeanDefinition，这保证了即使没有配置文件，我们也可以通过手动调用
      *  ClassPathXmlApplicationContext#registerBeanDefinition(com.minis.beans.BeanDefinition) 方法来实现 Bean 的注册功能
      *
      * 底层就是调用的 SimpleBeanFactory 的 registerBeanDefinition 方法，

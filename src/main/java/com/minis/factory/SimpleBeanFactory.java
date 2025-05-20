@@ -18,17 +18,16 @@ import java.util.Map;
  */
 @Slf4j
 public class SimpleBeanFactory implements BeanFactory {
-    private List<BeanDefinition> beanDefinitions = new ArrayList<>();
-    private List<String> beanNames = new ArrayList<>();
+    private final List<BeanDefinition> beanDefinitions = new ArrayList<>();
+    private final List<String> beanNames = new ArrayList<>();
 
     /**
      * Bean容器
      */
-    private Map<String, Object> singletons = new HashMap<>();
+    private final Map<String, Object> singletons = new HashMap<>();
 
     /**
      * Part6、保存 bean 到 bean 容器中
-     *
      *      1、保存 bean 到 map（singletons） 中
      *      2、获取 bean
      */

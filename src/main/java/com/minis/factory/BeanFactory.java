@@ -10,11 +10,11 @@ import com.minis.beans.BeanDefinition;
  */
 public interface BeanFactory {
     /**
-     * 获取Bean
+     * 获取一个 Bean
      * */
     Object getBean(String beanName) throws BeansException;
-    /*
-    * 注册 BeanDefinition
-    * */
+    /**
+     * 注册一个 BeanDefinition
+     * */
     void registerBeanDefinition(BeanDefinition beanDefinition);
 }
