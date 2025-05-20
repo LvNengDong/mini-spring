@@ -1,8 +1,6 @@
 package com.minis.context;
 
 import com.apple.eawt.ApplicationEvent;
-import com.minis.ApplicationEventPublisher;
-import com.minis.beans.BeanDefinition;
 import com.minis.factory.BeanFactory;
 import com.minis.beans.BeansException;
 import com.minis.factory.SimpleBeanFactory;
@@ -55,7 +53,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
     }
 
     @Override
-    public Class getType(String name) {
+    public Class<?> getType(String name) {
         return this.beanFactory.getType(name);
     }
 

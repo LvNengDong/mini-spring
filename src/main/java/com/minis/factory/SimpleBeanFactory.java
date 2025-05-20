@@ -82,16 +82,14 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
     }
 
     @Override
-    public Class getType(String name) {
-        return null;
+    public Class<?> getType(String name) {
+        return this.beanDefinitionMap.get(name).getClass();
     }
 
-    /**
-     * 注册 BeanDefinition
-     * */
     @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
         beanDefinitionMap.put(name, beanDefinition);
+        beanDefinitionNames.add(name);
         if (!beanDefinition.isLazyInit()) {
             log.info("非懒加载的bean，立即创建bean实例。beanName:{}",name);
             try {
@@ -102,27 +100,19 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
         }
     }
 
-    /*
-    * parentClass ： BeanDefinitionRegistry
-    * */
     @Override
     public void removeBeanDefinition(String name) {
         this.beanDefinitionMap.remove(name);
         this.beanDefinitionNames.remove(name);
+        // 删除bean
         this.removeSingleton(name);
     }
 
-    /*
-     * parentClass ： BeanDefinitionRegistry
-     * */
     @Override
     public BeanDefinition getBeanDefinition(String name) {
         return this.beanDefinitionMap.get(name);
     }
 
-    /*
-     * parentClass ： BeanDefinitionRegistry
-     * */
     @Override
     public boolean containsBeanDefinition(String name) {
         return this.beanDefinitionMap.containsKey(name);
