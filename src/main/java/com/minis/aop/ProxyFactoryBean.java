@@ -46,7 +46,7 @@ public class ProxyFactoryBean implements FactoryBean<Object> {
 
     private synchronized void initializeAdvisor() {
         try {
-            Object advice = this.beanFactory.getBean(this.interceptorName);
+            Object advice = this.beanFactory.getBean(this.interceptorName); // 获取拦截器
             advisor = new DefaultAdvisor();
             advisor.setMethodInterceptor((MethodInterceptor)advice);
         } catch (Exception e) {

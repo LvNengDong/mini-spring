@@ -8,11 +8,11 @@ import java.lang.reflect.Method;
  * @Date 2025/5/19 21:38
  */
 public class ReflectiveMethodInvocation implements MethodInvocation {
-    protected final Object proxy;
-    protected final Object target;
+    protected final Object proxy; // 代理对象
+    protected final Object target; // 被代理对象
     protected final Method method;
     protected Object[] arguments;
-    private Class targetClass;
+    private Class targetClass; // 被代理对象的类
 
     public ReflectiveMethodInvocation(Object proxy, Object target, Method method, Object[] arguments, Class targetClass) {
         this.proxy = proxy;
@@ -24,17 +24,17 @@ public class ReflectiveMethodInvocation implements MethodInvocation {
 
     @Override
     public Method getMethod() {
-        return null;
+        return this.method;
     }
 
     @Override
     public Object[] getArguments() {
-        return new Object[0];
+        return this.arguments;
     }
 
     @Override
     public Object getThis() {
-        return null;
+        return this.target;
     }
 
     @Override

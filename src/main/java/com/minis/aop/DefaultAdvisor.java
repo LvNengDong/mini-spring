@@ -6,6 +6,7 @@ package com.minis.aop;
  * @Date 2025/5/19 21:31
  */
 public class DefaultAdvisor implements Advisor {
+
     private MethodInterceptor methodInterceptor;
 
     @Override

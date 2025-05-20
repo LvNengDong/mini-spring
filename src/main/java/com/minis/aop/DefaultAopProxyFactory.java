@@ -5,7 +5,7 @@ package com.minis.aop;
  * @Description
  * @Date 2025/5/19 17:34
  */
-public class DefaultAopProxyFactory implements AopProxyFactory{
+public class DefaultAopProxyFactory implements AopProxyFactory {
 
     @Override
     public AopProxy createAopProxy(Object target, Advisor advisor) {
