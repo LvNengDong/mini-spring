@@ -9,8 +9,10 @@ import com.minis.beans.BeanDefinition;
  * @Date 2023/10/14 13:04
  */
 public interface BeanFactory {
+    /**
+     * 获取一个 Bean
+     * */
     Object getBean(String beanName) throws BeansException;
-
     /*
      *   registryBeanDefinition >> registryBean
      *       为了和Spring框架内的方法名保持一致，所以这里把 registryBeanDefinition 方法修改为 registryBean，参数改为 beanName 和 obj。
@@ -27,8 +29,3 @@ public interface BeanFactory {
 
     Class getType(String name);
 }
-
-
-
-
-

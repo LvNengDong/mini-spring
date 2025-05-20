@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--Part1：Bean的配置文件-->
 <beans>
-    <bean id = "aiguo" class = "com.minis.test.bean.AiGuoServiceImpl">
+    <bean id = "wangcai" class = "com.minis.test.service.impl.WangCaiServiceImpl"></bean>
+    <bean id = "aiguo" class = "com.minis.test.service.impl.AiGuoServiceImpl">
         <!--Setter注入（property标签）： 属性类型 | 属性名 | 属性值-->
         <property type="String" name="country" value="中国"></property>
     </bean>

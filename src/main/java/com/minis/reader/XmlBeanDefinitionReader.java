@@ -2,7 +2,6 @@ package com.minis.reader;
 
 import com.minis.factory.BeanFactory;
 import com.minis.beans.BeanDefinition;
-import com.minis.factory.SimpleBeanFactory;
 import com.minis.resource.Resource;
 import org.dom4j.Element;
 
@@ -15,9 +14,11 @@ public class XmlBeanDefinitionReader {
 
     /**
      *  Q：这个类中为什么需要 beanFactory ？
-     *  A：因为 XxxReader 的作用就是解析 document 中的 bean 的定义，并根据 bean 的定义
-     *  注册 BeanDefinition，而注册 BeanDefinition的方法被抽象在 beanFactory 中了，
-     *  所以这里需要注入 beanFactory。
+     *
+     *  A：因为我们定义了 BeanFactory 的一个作用是注册 BeanDefinition（这个registerBeanDefinition功能后期会从 BeanFactory 移除），
+     *  而注册 BeanDefinition 首先要解析 Resource 资源文件，
+     *  而 XxxReader 的作用就是解析 document 中的 bean 的定义，并根据 bean 的定义
+     *  注册 BeanDefinition，所以这里需要注入 beanFactory。
      *  */
     SimpleBeanFactory beanFactory;
     public XmlBeanDefinitionReader(SimpleBeanFactory beanFactory) {

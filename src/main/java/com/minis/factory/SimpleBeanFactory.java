@@ -35,7 +35,6 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
     /**
      * parentClass ： BeanFactory
      * Part6、保存 bean 到 bean 容器中
-     *
      *      1、保存 bean 到 map（singletons） 中
      *      2、获取 bean
      */

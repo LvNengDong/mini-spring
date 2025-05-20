@@ -2,7 +2,7 @@ package com.minis.test;
 
 import com.minis.beans.BeansException;
 import com.minis.context.ClassPathXmlApplicationContext;
-import com.minis.test.bean.XService;
+import com.minis.test.service.XService;
 import com.minis.test.utils.printLog.FormatUtil;
 
 /**
