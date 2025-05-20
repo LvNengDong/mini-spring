@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--Part1：Bean的配置文件-->
 <beans>
-    <bean id = "aiguo" class = "com.minis.test.bean.AiGuoServiceImpl">
-        <!--Setter注入（property标签）： 属性类型 | 属性名 | 属性值-->
-        <property type="String" name="country" value="中国"></property>
+    <bean id = "wangcai" class = "com.minis.test.service.impl.WangCaiServiceImpl"/>
+
+    <!--Setter注入（property标签）： 属性类型 | 属性名 | 属性值-->
+    <bean id = "user" class = "com.minis.test.bean.User">
+        <property type="String" name="name" value="张三"/>
+        <property type="Integer" name="age" value="30"/>
     </bean>
-    <bean id = "wangcai" class = "com.minis.test.bean.WangCaiServiceImpl">
-        <!-- 构造器注入（constructor-arg标签） -->
-        <constructor-arg type="String" name="gender" value="公"></constructor-arg>
-        <constructor-arg type="int" name="age" value="3"></constructor-arg>
+
+    <!-- 构造器注入（constructor-arg标签） -->
+    <bean id = "user2" class = "com.minis.test.bean.User">
+        <constructor-arg type="String" name="name" value="李四"/>
+        <constructor-arg type="Integer" name="age" value="40"/>
     </bean>
 
 
-    <bean id = "Desk" class = "com.minis.test.bean.Desk">
-        <!-- 搭配使用 -->
+    <!-- 搭配使用 -->
+    <bean id = "desk" class = "com.minis.test.bean.Desk">
         <constructor-arg type="String" name="color" value="实木色"></constructor-arg>
         <property type="String" name="length" value="80"></property>
         <property type="String" name="width" value="60"></property>

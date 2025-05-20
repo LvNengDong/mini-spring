@@ -2,6 +2,7 @@ package com.minis.beans;
 
 import com.minis.ArgumentValues;
 import com.minis.PropertyValues;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;

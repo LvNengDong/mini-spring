@@ -6,13 +6,11 @@ import lombok.Data;
 /**
  * @Author lnd
  * @Description
- * @Date 2023/10/15 10:44
+ * @Date 2025/5/20 21:32
  */
 @AllArgsConstructor
 @Data
-public class Desk {
-    private String color;
-    private int length;
-    private int width;
-    private int height;
+public class User {
+    private String name;
+    private Integer age;
 }

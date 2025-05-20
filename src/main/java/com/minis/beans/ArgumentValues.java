@@ -1,7 +1,6 @@
-package com.minis;
+package com.minis.beans;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author lnd
@@ -26,7 +25,6 @@ public class ArgumentValues {
     public int getArgumentCount() {
         return (this.argumentValueList.size());
     }
-
     public boolean isEmpty() {
         return (this.argumentValueList.isEmpty());
     }

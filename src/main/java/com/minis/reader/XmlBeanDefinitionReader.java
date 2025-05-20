@@ -39,7 +39,7 @@ public class XmlBeanDefinitionReader {
         log.info("解析Bean配置文件 start ======");
         while (resource.hasNext()) {
             Element element = (Element) resource.next();
-            String beanID = element.attributeValue("id");
+            String beanId = element.attributeValue("id");
             String beanClassName = element.attributeValue("class");
             log.info("解析Bean配置文件 初始化BeanDefinition对象");
             BeanDefinition beanDefinition = new BeanDefinition(beanID, beanClassName);
@@ -92,6 +92,5 @@ public class XmlBeanDefinitionReader {
             * */
             this.simpleBeanFactory.registerBeanDefinition(beanID, beanDefinition);
         }
-
     }
 }
