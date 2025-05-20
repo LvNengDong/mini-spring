@@ -16,6 +16,7 @@ public class ProxyFactoryBean implements FactoryBean<Object> {
 
     private Object singletonInstance;
 
+    @Setter
     private AopProxyFactory aopProxyFactory;
 
     @Getter
@@ -30,9 +31,9 @@ public class ProxyFactoryBean implements FactoryBean<Object> {
     private String[] targetName;
 
     private PointcutAdvisor advisor;
-
+    @Setter
     private String interceptorName;
-
+    @Setter
     private BeanFactory beanFactory;
 
 
